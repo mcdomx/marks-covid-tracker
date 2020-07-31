@@ -20,113 +20,26 @@
   {% csrf_token %}
   <script type="text/javascript">
 
-    function update_counties(state, county_id, data_group_class, target_chart, chart_update_url) {
-      // when a new state is selected, this function will update
-      // the counties dropdown list.
-      var county_sel = document.getElementById(county_id).getElementsByClassName('dropdown-menu')[0];
-      var data_div = document.getElementById(county_id).getElementsByClassName(data_group_class)[0];
-      var btn = document.getElementById(county_id).getElementsByClassName('btn')[0]
-
-      console.log(btn)
-      btn.disabled = true;
-      var btn_span = document.createElement('span');
-      btn_span.className = "spinner-border spinner-border-sm text-light";
-      btn_span.role = 'status';
-      btn.appendChild(btn_span);
-      btn.innerText = 'loading...';
-
-      // clear the exiting list
-      while (county_sel.firstChild) {
-        county_sel.removeChild(county_sel.firstChild);
-      }
-
-      // get the counties for the selected state
-      fetch('/get_counties?state=' + state)
-          .then(response => {
-            return response.json();
-          })
-          .then(counties_list => {
-
-            var opt;
-            for (var county in counties_list) {
-              opt = document.createElement('a');
-              opt.className = 'dropdown-item';
-              opt.href = '#';
-              opt.innerText = counties_list[county];
-              opt.onclick = (x) => {
-                                btn.innerText = x.target.text;
-                                btn.setAttribute('data-value', x.target.text);
-                                determine_and_update(target_chart, data_group_class, chart_update_url);
-                              }
-              county_sel.appendChild(opt);
-            }
-          })
-          .then(() => {
-            data_div.innerText = 'All';
-            data_div.setAttribute('data-value', 'All');
-            btn.disabled = false;
-            })
-          .catch( error => console.log(error));
-    }
-
-    function make_county_dropdown(data_group_class, add_to_div, target_chart, chart_update_url, button_label) {
-      make_button_dropdown(data_group_class, add_to_div, target_chart, chart_update_url, {'county': ['All']}, button_label)
-    }
-
-    function make_state_dropdown(data_group_class, add_to_div, target_chart, chart_update_url, button_label) {
-      fetch('/get_states')
-        .then(response => {
-          return response.json();
-        })
-        .then(states_list => {
-          make_button_dropdown(data_group_class, add_to_div, target_chart, chart_update_url, {'state': states_list}, button_label);
-          })
-        .catch( (error) => console.log(error))
-    }
+    const states_dict = JSON.parse("{{ states|escapejs }}");
+    const states_list = Object.keys(states_dict);
 
     function addFiltersToUri(uri, filters) {
-
-            var state = filters['state'];
-            var county = filters['county'];
-            var frequency = filters['frequency'];
-            var data_type = filters['data_type'];
-            var rolling_window = filters['rolling_window'];
-            var finalUri = uri;
-            var filterSuffixUri;
-
-            if (state) {
-                filterSuffixUri = 'state=' + state;
-            }
-            if (county) {
-                if (filterSuffixUri) {
-                    filterSuffixUri += '&';
-                }
-                filterSuffixUri = filterSuffixUri + 'county=' + county;
-            }
-            if (frequency) {
-                if (filterSuffixUri) {
-                    filterSuffixUri += '&';
-                }
-                filterSuffixUri = filterSuffixUri + 'frequency=' + frequency;
-            }
-            if (data_type) {
-                if (filterSuffixUri) {
-                    filterSuffixUri += '&';
-                }
-                filterSuffixUri = filterSuffixUri + 'data_type=' + data_type;
-            }
-            if (rolling_window) {
-                if (filterSuffixUri) {
-                    filterSuffixUri += '&';
-                }
-                filterSuffixUri = filterSuffixUri + 'rolling_window=' + rolling_window;
-            }
-            if (filterSuffixUri) {
-                finalUri = finalUri + '?' + filterSuffixUri;
-            }
-
-            return finalUri;
+      var finalUri = uri;
+      var filterSuffixUri;
+      var first = true;
+      for (var key in filters) {
+        if (filters.hasOwnProperty(key)) {
+          if (first) {
+            filterSuffixUri = key + '=' + filters[key];
+            first = false;
+          } else {
+            filterSuffixUri = filterSuffixUri + '&' + key + '=' + filters[key];
+          }
         }
+      }
+      finalUri = finalUri + '?' + filterSuffixUri;
+      return finalUri;
+    }
 
     function updateChart(divId, uri, filters) {
 
@@ -135,7 +48,9 @@
       var finalUri = addFiltersToUri(uri, filters)
 
       // show pre-loading
-      chart_div.innerHTML = "<img style=\"height:400px\" src={% static 'covid_tracker/assets/pre-loader-1.gif' %}>";
+      // chart_div.innerHTML = "<img style=\"height:400px\" src={% static 'covid_tracker/assets/pre-loader-1.gif' %}>";
+      chart_div.innerHTML = "<iframe src=\"https://giphy.com/embed/dUf4MkUk6GpuMDrNbj\" width=\"100%\" height=\"100%\" style=\"position:absolute\" frameBorder=\"0\" class=\"giphy-embed\" allowFullScreen></iframe>"
+
 
       fetch(finalUri)
                 .then(function (response) {
@@ -157,7 +72,6 @@
     function determine_filters(data_group_class) {
       var elem_list = document.getElementsByClassName(data_group_class);
       var filters = {};
-      console.log(elem_list.length);
       for (let i = 0; i < elem_list.length; i++) {
         filters[elem_list[i].dataset.key] = elem_list[i].dataset.value.toLowerCase();
       }
@@ -171,8 +85,74 @@
       updateChart(chartId, uri, updates_filters);
     }
 
-    function make_slider(data_group_class, add_to_div, target_chart, chart_update_url) {
 
+    function update_counties(state, county_id, data_group_class, target_chart, chart_update_url) {
+      // when a new state is selected, this function will update
+      // the counties dropdown list.
+      var county_sel = document.getElementById(county_id).getElementsByClassName('dropdown-menu')[0];
+      var data_div = document.getElementById(county_id).getElementsByClassName(data_group_class)[0];
+      var btn = document.getElementById(county_id).getElementsByClassName('btn')[0]
+
+      btn.disabled = true;
+      var btn_span = document.createElement('span');
+      btn_span.className = "spinner-border spinner-border-sm text-light";
+      btn_span.role = 'status';
+      btn.appendChild(btn_span);
+      btn.innerText = 'loading...';
+
+      // clear the exiting list
+      while (county_sel.firstChild) {
+        county_sel.removeChild(county_sel.firstChild);
+      }
+
+      // get the counties for the selected state
+      // fetch('/get_counties?state=' + state)
+      //     .then(response => {
+      //       return response.json();
+      //     })
+      //     .then(counties_list => {
+
+      const counties_list = states_dict[state];
+
+      var opt;
+      for (var county in counties_list) {
+        opt = document.createElement('a');
+        opt.className = 'dropdown-item';
+        opt.href = '#';
+        opt.innerText = counties_list[county];
+        opt.onclick = (x) => {
+          btn.innerText = x.target.text;
+          btn.setAttribute('data-value', x.target.text);
+          determine_and_update(target_chart, data_group_class, chart_update_url);
+        }
+        county_sel.appendChild(opt);
+        //   }
+        // })
+        // .then(() => {
+        data_div.innerText = 'All';
+        data_div.setAttribute('data-value', 'All');
+        btn.disabled = false;
+        //   })
+        // .catch( error => console.log(error));
+      }
+    }
+
+    function make_county_dropdown(data_group_class, add_to_div, target_chart, chart_update_url, button_label) {
+      make_button_dropdown(data_group_class, add_to_div, target_chart, chart_update_url, {'county': ['All']}, button_label)
+    }
+
+    function make_state_dropdown(data_group_class, add_to_div, target_chart, chart_update_url, button_label) {
+      // fetch('/get_states')
+      //   .then(response => {
+      //     return response.json();
+      //   })
+      //   .then(states_list => {
+          make_button_dropdown(data_group_class, add_to_div, target_chart, chart_update_url, {'state': states_list}, button_label);
+        //   })
+        // .catch( (error) => console.log(error))
+    }
+
+    function make_slider(data_group_class, add_to_div, target_chart, chart_update_url) {
       var slider_div = document.createElement('div');
       slider_div.className = 'my-3';
 
@@ -209,9 +189,7 @@
 
     }
 
-
     function make_button_dropdown(data_group_class, add_to_div, target_chart, chart_update_url, sel_options, button_label) {
-
       var key = Object.keys(sel_options)[0];
       var options = sel_options[key];
 
@@ -228,7 +206,7 @@
       dropdown_div.appendChild(new_label)
 
       var new_btn = document.createElement('div');
-      new_btn.className = 'btn btn-sm btn-primary btn-block dropdown-toggle ' + data_group_class;
+      new_btn.className = 'btn btn-sm btn-success btn-block dropdown-toggle ' + data_group_class;
       new_btn.href = '#';
       new_btn.role = 'button';
       new_btn.setAttribute('data-toggle', 'dropdown');
@@ -237,7 +215,6 @@
       new_btn.setAttribute('aria-haspopup', 'true');
       new_btn.setAttribute('aria-expanded', 'false');
       new_btn.innerText = options[0];
-      new_btn.onselectionchange = x => console.log("Changed: " + x);
       dropdown_div.appendChild(new_btn);
 
       var new_menu = document.createElement('div');
@@ -267,13 +244,87 @@
       document.getElementById(add_to_div).appendChild(row_div);
     }
 
-    function make_state_totals_chart(){
+    function make_chart(default_filters, chart_name, chart_title, chart_update_url){
+
+      const data_group_name = chart_name + '_data_group';
+
+      // create a controls and chart divs
+      var section_div = document.createElement('div');
+      section_div.className = 'container m-3';
+      section_div.id = chart_name;
+
+      var title = document.createElement('h3');
+      title.className = 'row p-2';
+      title.style = 'background-color: darkseagreen';
+      title.innerText = chart_title;
+      section_div.appendChild(title);
+
+      var content_div = document.createElement('div');
+      content_div.className = 'row';
+      section_div.appendChild(content_div);
+
+      var controls_div = document.createElement('div');
+      controls_div.className = 'col-2 mt-2';
+      controls_div.id = chart_name + '_controls';
+      content_div.appendChild(controls_div);
+
+      var chart_div = document.createElement('div');
+      chart_div.className = 'col-10';
+      chart_div.id = chart_name + '_chart';
+      content_div.appendChild(chart_div);
+
+      document.body.appendChild(section_div);
+
+      // make a region section with a state if 'state' exists
+      if (default_filters.hasOwnProperty('state')){
+        var region_div = document.createElement('div');
+        region_div.id = controls_div.id + '_regions';
+        region_div.className = 'mb-3';
+        controls_div.appendChild(region_div);
+
+        var state_div = document.createElement('div');
+        state_div.id = region_div.id + '_state';
+        region_div.appendChild(state_div);
+
+        make_state_dropdown(data_group_name, state_div.id, chart_div.id, chart_update_url, 'State: ');
+
+      }
+
+      // make a county section if 'county' exists - tie it to state
+      if (default_filters.hasOwnProperty('county')){
+        var county_div = document.createElement('div');
+        region_div.appendChild(county_div);
+        county_div.id = region_div.id + '_county';
+        state_div.setAttribute('data-county_id', county_div.id);
+
+        make_county_dropdown(data_group_name, county_div.id, chart_div.id, chart_update_url, 'County: ');
+      }
+
+      // make slider if 'rolling_window' exists
+      if (default_filters.hasOwnProperty('rolling_window')){
+        make_slider(data_group_name, controls_div.id, chart_div.id, chart_update_url);
+      }
+
+      // make frequency button if 'frequency' exists
+      if (default_filters.hasOwnProperty('frequency')) {
+        make_button_dropdown(data_group_name, controls_div.id, chart_div.id, chart_update_url, {'frequency': ['Daily', 'Cumulative']}, 'Frequency: ');
+      }
+
+      // make data_type button if 'data_type' exists
+      if (default_filters.hasOwnProperty('data_type')) {
+        make_button_dropdown(data_group_name, controls_div.id, chart_div.id, chart_update_url, {'data_type': ['Infections', 'Deaths']}, 'Data Type: ');
+      }
+
+      updateChart(chart_div.id, chart_update_url, default_filters);
 
     }
 
 
     // On load - draw default table
     document.addEventListener('DOMContentLoaded', () => {
+
+      console.log(states_list);
+
       var filters = {
         'state': 'United States',
         'county': 'All',
@@ -282,35 +333,14 @@
         'rolling_window': 14
       };
 
-      // create region - state - county hierarchy of div elements
-      var region_div = document.createElement('div');
-      region_div.id = 'state_totals_controls_regions';
-      region_div.className = 'mb-3'
-      document.getElementById('state_totals_controls').appendChild(region_div);
-      var state_div = document.createElement('div');
-      state_div.id = 'state_totals_controls_regions_state';
-      region_div.appendChild(state_div);
-      var county_div = document.createElement('div');
-      region_div.appendChild(county_div);
-      county_div.id = 'state_totals_controls_regions_county';
-      state_div.setAttribute('data-county_id', county_div.id);
-
       fetch('/refresh_git')
         .then(response => console.log(response.json()))
         .then(() => {
-          make_state_dropdown('state_totals_data_group', 'state_totals_controls_regions_state', 'state-totals-chart', '/state_chart', 'State: ');
+          make_chart(filters, 'state_totals', 'State Totals', '/state_chart/');
         })
-        .then( () => {
-          make_county_dropdown('state_totals_data_group', 'state_totals_controls_regions_county', 'state-totals-chart', '/state_chart', 'County: ');
-        })
-        .then(() => make_slider('state_totals_data_group', 'state_totals_controls', 'state-totals-chart', '/state_chart'))
-        .then(() => {
-          make_button_dropdown('state_totals_data_group', 'state_totals_controls', 'state-totals-chart', '/state_chart', {'frequency': ['Daily', 'Cumulative']}, 'Frequency: ')
-        })
-        .then(() => make_button_dropdown('state_totals_data_group', 'state_totals_controls', 'state-totals-chart', '/state_chart', {'data_type': ['Infections', 'Deaths']}, 'Data Type: '))
         .catch( error => console.log(error))
 
-      updateChart('state-totals-chart', '/state_chart', filters);
+      // updateChart('state-totals-chart', '/state_chart', filters);
     });
 
 
@@ -318,13 +348,13 @@
 </head>
 
 <body>
-  <div class="container m-3" id="state-totals">
-    <h3 class="row p-2" style="background-color: darkseagreen">State Totals</h3>
-    <div class="row">
-        <div class="col-2 mt-2" id="state_totals_controls"></div>
-        <div class='col-10' id="state-totals-chart"></div>
-    </div>
-  </div>
+<!--  <div class="container m-3" id="state-totals">-->
+<!--    <h3 class="row p-2" style="background-color: darkseagreen">State Totals</h3>-->
+<!--    <div class="row">-->
+<!--        <div class="col-2 mt-2" id="state_totals_controls"></div>-->
+<!--        <div class='col-10' id="state-totals-chart"></div>-->
+<!--    </div>-->
+<!--  </div>-->
 </body>
 </html>
 

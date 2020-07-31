@@ -16,6 +16,7 @@ Including another URLconf
 from django.urls import path, re_path
 
 from .views import views
+from .views import plot_state_totals
 
 urlpatterns = [
     # Default route
@@ -24,6 +25,6 @@ urlpatterns = [
     path("get_states", views.get_states, name='get_states'),
 
     re_path('get_counties[\/|\?].*', views.get_counties, name='get_counties'),
-    re_path(r"state_chart[\/|\?].*", views.plot_state_chart),
+    re_path(r"state_chart[\/|\?].*", plot_state_totals.plot_state_chart, name='plot_state_totals'),
 ]
 

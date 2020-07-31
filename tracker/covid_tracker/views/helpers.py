@@ -99,6 +99,7 @@ def get_dataframe(dataset, file_path: str = FILE_PATH) -> pd.DataFrame:
         return f"{s.County}, {s.Province_State}"
 
     f = os.path.join(file_path, file_name)
+    print(os.path.isfile(f), f)
 
     df = pd.DataFrame()
     if os.path.isfile(f):
