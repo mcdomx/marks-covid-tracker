@@ -100,6 +100,7 @@ def get_dataframe(dataset, file_path: str = FILE_PATH) -> pd.DataFrame:
 
     f = os.path.join(file_path, file_name)
 
+    df = pd.DataFrame()
     if os.path.isfile(f):
         df = pd.read_csv(f)
         if "Province_State" in df.columns:

@@ -13,12 +13,17 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.urls import path
+from django.urls import path, re_path
 
 from .views import views
 
 urlpatterns = [
     # Default route
     path("", views.index_view, name="index"),
+    path("refresh_git", views.refresh_git, name='refresh_git'),
+    path("get_states", views.get_states, name='get_states'),
+
+    re_path('get_counties[\/|\?].*', views.get_counties, name='get_counties'),
+    re_path(r"state_chart[\/|\?].*", views.plot_state_chart),
 ]
 
