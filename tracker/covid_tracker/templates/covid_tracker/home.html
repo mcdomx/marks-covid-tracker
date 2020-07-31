@@ -141,37 +141,43 @@
       make_button_dropdown(data_group_class, add_to_div, target_chart, chart_update_url, {'county': ['All']}, button_label)
     }
 
+    function make_exclcounty_dropdown(data_group_class, add_to_div, target_chart, chart_update_url, button_label) {
+      make_multibutton_dropdown(data_group_class, add_to_div, target_chart, chart_update_url, {'county': ['All']}, button_label)
+    }
+
     function make_state_dropdown(data_group_class, add_to_div, target_chart, chart_update_url, button_label) {
       // fetch('/get_states')
       //   .then(response => {
       //     return response.json();
       //   })
       //   .then(states_list => {
-          make_button_dropdown(data_group_class, add_to_div, target_chart, chart_update_url, {'state': states_list}, button_label);
+          const states_wo_totalUS = states_list.slice(1, states_list.length);
+          make_button_dropdown(data_group_class, add_to_div, target_chart, chart_update_url, {'state': states_wo_totalUS}, button_label);
         //   })
         // .catch( (error) => console.log(error))
     }
 
-    function make_slider(data_group_class, add_to_div, target_chart, chart_update_url) {
+    function make_slider(data_group_class, add_to_div, target_chart, chart_update_url, key_value_name, slider_title, values_dict) {
+      // values_dict = {'min': , 'max':, 'value': }
       var slider_div = document.createElement('div');
       slider_div.className = 'my-3';
 
       var slider_id = data_group_class + '_slider';
       var slider_label = document.createElement('label');
       slider_label.for = slider_id;
-      slider_label.innerText = "Rolling avg days: ";
+      slider_label.innerText = slider_title;
       var slider_span = document.createElement('span');
       slider_span.id = slider_id + '_days';
-      slider_span.innerText = '14';
+      slider_span.innerText = values_dict['value'].toString();
       slider_label.appendChild(slider_span);
       var slider_input = document.createElement('input');
       slider_input.type = 'range';
-      slider_input.min = '1';
-      slider_input.max = '21';
-      slider_input.value = '14';
+      slider_input.min = values_dict['min'].toString();
+      slider_input.max = values_dict['max'].toString();
+      slider_input.value = values_dict['value'].toString();
       slider_input.id = slider_id;
       slider_input.className = 'slider ' + data_group_class;
-      slider_input.setAttribute('data-key', 'rolling_window');
+      slider_input.setAttribute('data-key', key_value_name);
       slider_input.setAttribute('data-value', slider_input.value);
       slider_input.oninput = x => {
                                     slider_span.innerText = x.target.value;
@@ -244,6 +250,61 @@
       document.getElementById(add_to_div).appendChild(row_div);
     }
 
+    function make_multibutton_dropdown(data_group_class, add_to_div, target_chart, chart_update_url, sel_options, button_label) {
+      var key = Object.keys(sel_options)[0];
+      var options = sel_options[key];
+
+      var row_div = document.createElement('div');
+      row_div.className = 'row';
+      row_div.style = 'display: block';
+      var dropdown_div = document.createElement('div');
+      row_div.appendChild(dropdown_div)
+      dropdown_div.className = 'dropdown show';
+      dropdown_div.style = 'display: block';
+
+      var new_label = document.createElement('label');
+      new_label.innerText = button_label;
+      dropdown_div.appendChild(new_label)
+
+      var new_btn = document.createElement('div');
+      new_btn.className = 'btn btn-sm btn-success btn-block dropdown-toggle ' + data_group_class;
+      new_btn.href = '#';
+      new_btn.role = 'button';
+      new_btn.setAttribute('data-toggle', 'dropdown');
+      new_btn.setAttribute('data-key', key);
+      new_btn.setAttribute('data-value', options[0]);
+      new_btn.setAttribute('aria-haspopup', 'true');
+      new_btn.setAttribute('aria-expanded', 'false');
+      new_btn.innerText = options[0];
+      dropdown_div.appendChild(new_btn);
+
+      var new_menu = document.createElement('div');
+      new_menu.className = 'dropdown-menu';
+      new_menu.setAttribute('aria-labelledby', 'dropdownMenuLink');
+      dropdown_div.appendChild(new_menu);
+
+      var elem;
+      for (var i in options) {
+        elem = document.createElement('a');
+        elem.className = 'dropdown-item';
+        elem.href = '#';
+        elem.innerText = options[i];
+        elem.onclick = (x) => {
+                                // var county_id = document.getElementById(add_to_div).dataset.county_id;
+                                // if (county_id) {
+                                //   document.getElementById(county_id).getElementsByClassName(data_group_class)[0].setAttribute('data-value', 'All');
+                                //   document.getElementById(county_id).getElementsByClassName(data_group_class)[0].innerText = 'All';
+                                //   update_counties(x.target.text, county_id, data_group_class, target_chart, chart_update_url);
+                                // }
+                                // new_btn.innerText = x.target.text;
+                                // new_btn.setAttribute('data-value', x.target.text);
+                                // determine_and_update(target_chart, data_group_class, chart_update_url);
+                              }
+        new_menu.appendChild(elem);
+      }
+      document.getElementById(add_to_div).appendChild(row_div);
+    }
+
     function make_chart(default_filters, chart_name, chart_title, chart_update_url){
 
       const data_group_name = chart_name + '_data_group';
@@ -288,6 +349,9 @@
 
         make_state_dropdown(data_group_name, state_div.id, chart_div.id, chart_update_url, 'State: ');
 
+        // set the button's defaulted selection
+
+
       }
 
       // make a county section if 'county' exists - tie it to state
@@ -300,9 +364,24 @@
         make_county_dropdown(data_group_name, county_div.id, chart_div.id, chart_update_url, 'County: ');
       }
 
+      // make an exclude county section is 'exclude_counties' exists - tie it to state
+      if (default_filters.hasOwnProperty('exclude_counties')){
+        var excl_county_div = document.createElement('div');
+        region_div.appendChild(excl_county_div);
+        excl_county_div.id = region_div.id + '_exclcounties';
+        state_div.setAttribute('data-exclcounties_id', excl_county_div.id);
+
+        make_exclcounty_dropdown(data_group_name, excl_county_div.id, chart_div.id, chart_update_url, 'Exclude Counties: ');
+      }
+
       // make slider if 'rolling_window' exists
       if (default_filters.hasOwnProperty('rolling_window')){
-        make_slider(data_group_name, controls_div.id, chart_div.id, chart_update_url);
+        make_slider(data_group_name, controls_div.id, chart_div.id, chart_update_url, 'rolling_window', 'Rolling Avg Days: ', {'min': 1, 'max': 21, 'value': 14});
+      }
+
+      // make slider if 'top_n' exists
+      if (default_filters.hasOwnProperty('top_n')){
+        make_slider(data_group_name, controls_div.id, chart_div.id, chart_update_url, 'top_n', 'Top n Counties: ', {'min': 1, 'max': 15, 'value': 10});
       }
 
       // make frequency button if 'frequency' exists
@@ -323,24 +402,31 @@
     // On load - draw default table
     document.addEventListener('DOMContentLoaded', () => {
 
-      console.log(states_list);
-
-      var filters = {
-        'state': 'United States',
-        'county': 'All',
-        'frequency': 'daily',
-        'data_type': 'Infections',
-        'rolling_window': 14
-      };
-
       fetch('/refresh_git')
         .then(response => console.log(response.json()))
         .then(() => {
+          // infections by state
+          var filters = {
+            'state': 'United States',
+            'county': 'All',
+            'frequency': 'daily',
+            'data_type': 'Infections',
+            'rolling_window': 14
+          };
           make_chart(filters, 'state_totals', 'State Totals', '/state_chart/');
+        })
+        .then(() => {
+          // infections by county
+          var filters = {
+            'state': 'Massachusetts',
+            // 'exclude_counties': null,
+            'top_n': 10,
+            'data_type': 'Infections'
+          }
+          make_chart(filters, 'state_by_county', 'Counties by State', '/state_by_county_chart/');
         })
         .catch( error => console.log(error))
 
-      // updateChart('state-totals-chart', '/state_chart', filters);
     });
 
 

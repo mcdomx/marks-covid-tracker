@@ -15,7 +15,7 @@ load_dotenv(verbose=False)
 pd.options.mode.chained_assignment = None
 
 # GLOBAL VARIABLES
-FILE_PATH = os.path.join('COVID-19', 'csse_covid_19_data', 'csse_covid_19_time_series')
+FILE_PATH = os.path.join('covid_tracker', 'COVID-19', 'csse_covid_19_data', 'csse_covid_19_time_series')
 
 territories = ['American Samoa', 'Guam', 'Northern Mariana Islands', 'Mariana Islands',
                'Puerto Rico', 'Virgin Islands', 'Diamond Princess', 'Grand Princess']

@@ -90,8 +90,7 @@ def get_states(request):
 
 
 def refresh_git(request):
-    g = git.cmd.Git('COVID-19')
-    print(g.working_dir)
+    g = git.cmd.Git('covid_tracker/COVID-19')
     g.pull()
     g.fetch()
     g.refresh()

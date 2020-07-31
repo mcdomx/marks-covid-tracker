@@ -17,14 +17,15 @@ from django.urls import path, re_path
 
 from .views import views
 from .views import plot_state_totals
+from .views import plot_state_by_county
 
 urlpatterns = [
     # Default route
     path("", views.index_view, name="index"),
     path("refresh_git", views.refresh_git, name='refresh_git'),
-    path("get_states", views.get_states, name='get_states'),
-
-    re_path('get_counties[\/|\?].*', views.get_counties, name='get_counties'),
+    # path("get_states", views.get_states, name='get_states'),
+    #
+    # re_path('get_counties[\/|\?].*', views.get_counties, name='get_counties'),
     re_path(r"state_chart[\/|\?].*", plot_state_totals.plot_state_chart, name='plot_state_totals'),
+    re_path(r"state_by_county_chart[\/|\?].*", plot_state_by_county.plot_state_by_county_chart, name='plot_state_by_county'),
 ]
-
