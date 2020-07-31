@@ -1,6 +1,7 @@
 # Custom
 .idea/
 .env
+.csv
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
