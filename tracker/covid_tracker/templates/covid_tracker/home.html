@@ -86,7 +86,7 @@
     }
 
 
-    function update_counties(state, county_id, data_group_class, target_chart, chart_update_url) {
+    function update_counties(state, county_id, data_group_class, target_chart, chart_update_url, chart_name) {
       // when a new state is selected, this function will update
       // the counties dropdown list.
       var county_sel = document.getElementById(county_id).getElementsByClassName('dropdown-menu')[0];
@@ -118,7 +118,7 @@
       for (var county in counties_list) {
         opt = document.createElement('a');
         opt.className = 'dropdown-item';
-        opt.href = '#';
+        opt.href = '#' + chart_name;
         opt.innerText = counties_list[county];
         opt.onclick = (x) => {
           btn.innerText = x.target.text;
@@ -137,27 +137,27 @@
       }
     }
 
-    function make_county_dropdown(data_group_class, add_to_div, target_chart, chart_update_url, button_label) {
-      make_button_dropdown(data_group_class, add_to_div, target_chart, chart_update_url, {'county': ['All']}, button_label)
+    function make_county_dropdown(data_group_class, add_to_div, target_chart, chart_update_url, button_label, chart_name) {
+      make_button_dropdown(data_group_class, add_to_div, target_chart, chart_update_url, {'county': ['All']}, button_label, chart_name)
     }
 
-    function make_exclcounty_dropdown(data_group_class, add_to_div, target_chart, chart_update_url, button_label) {
-      make_multibutton_dropdown(data_group_class, add_to_div, target_chart, chart_update_url, {'county': ['All']}, button_label)
+    function make_exclcounty_dropdown(data_group_class, add_to_div, target_chart, chart_update_url, button_label, chart_name) {
+      make_multibutton_dropdown(data_group_class, add_to_div, target_chart, chart_update_url, {'county': ['All']}, button_label, chart_name)
     }
 
-    function make_state_dropdown(data_group_class, add_to_div, target_chart, chart_update_url, button_label) {
+    function make_state_dropdown(data_group_class, add_to_div, target_chart, chart_update_url, button_label, chart_name) {
       // fetch('/get_states')
       //   .then(response => {
       //     return response.json();
       //   })
       //   .then(states_list => {
           const states_wo_totalUS = states_list.slice(1, states_list.length);
-          make_button_dropdown(data_group_class, add_to_div, target_chart, chart_update_url, {'state': states_wo_totalUS}, button_label);
+          make_button_dropdown(data_group_class, add_to_div, target_chart, chart_update_url, {'state': states_wo_totalUS}, button_label, chart_name);
         //   })
         // .catch( (error) => console.log(error))
     }
 
-    function make_slider(data_group_class, add_to_div, target_chart, chart_update_url, key_value_name, slider_title, values_dict) {
+    function make_slider(data_group_class, add_to_div, target_chart, chart_update_url, key_value_name, slider_title, values_dict, chart_name) {
       // values_dict = {'min': , 'max':, 'value': }
       var slider_div = document.createElement('div');
       slider_div.className = 'my-3';
@@ -195,7 +195,7 @@
 
     }
 
-    function make_button_dropdown(data_group_class, add_to_div, target_chart, chart_update_url, sel_options, button_label) {
+    function make_button_dropdown(data_group_class, add_to_div, target_chart, chart_update_url, sel_options, button_label, chart_name) {
       var key = Object.keys(sel_options)[0];
       var options = sel_options[key];
 
@@ -232,14 +232,14 @@
       for (var i in options) {
         elem = document.createElement('a');
         elem.className = 'dropdown-item';
-        elem.href = '#';
+        elem.href = '#' + chart_name;
         elem.innerText = options[i];
         elem.onclick = (x) => {
                                 var county_id = document.getElementById(add_to_div).dataset.county_id;
                                 if (county_id) {
                                   document.getElementById(county_id).getElementsByClassName(data_group_class)[0].setAttribute('data-value', 'All');
                                   document.getElementById(county_id).getElementsByClassName(data_group_class)[0].innerText = 'All';
-                                  update_counties(x.target.text, county_id, data_group_class, target_chart, chart_update_url);
+                                  update_counties(x.target.text, county_id, data_group_class, target_chart, chart_update_url, chart_name);
                                 }
                                 new_btn.innerText = x.target.text;
                                 new_btn.setAttribute('data-value', x.target.text);
@@ -250,7 +250,7 @@
       document.getElementById(add_to_div).appendChild(row_div);
     }
 
-    function make_multibutton_dropdown(data_group_class, add_to_div, target_chart, chart_update_url, sel_options, button_label) {
+    function make_multibutton_dropdown(data_group_class, add_to_div, target_chart, chart_update_url, sel_options, button_label, chart_name) {
       var key = Object.keys(sel_options)[0];
       var options = sel_options[key];
 
@@ -287,7 +287,7 @@
       for (var i in options) {
         elem = document.createElement('a');
         elem.className = 'dropdown-item';
-        elem.href = '#';
+        elem.href = '#' + chart_name;
         elem.innerText = options[i];
         elem.onclick = (x) => {
                                 // var county_id = document.getElementById(add_to_div).dataset.county_id;
@@ -347,10 +347,7 @@
         state_div.id = region_div.id + '_state';
         region_div.appendChild(state_div);
 
-        make_state_dropdown(data_group_name, state_div.id, chart_div.id, chart_update_url, 'State: ');
-
-        // set the button's defaulted selection
-
+        make_state_dropdown(data_group_name, state_div.id, chart_div.id, chart_update_url, 'State: ', chart_name);
 
       }
 
@@ -361,7 +358,7 @@
         county_div.id = region_div.id + '_county';
         state_div.setAttribute('data-county_id', county_div.id);
 
-        make_county_dropdown(data_group_name, county_div.id, chart_div.id, chart_update_url, 'County: ');
+        make_county_dropdown(data_group_name, county_div.id, chart_div.id, chart_update_url, 'County: ', chart_name);
       }
 
       // make an exclude county section is 'exclude_counties' exists - tie it to state
@@ -371,27 +368,27 @@
         excl_county_div.id = region_div.id + '_exclcounties';
         state_div.setAttribute('data-exclcounties_id', excl_county_div.id);
 
-        make_exclcounty_dropdown(data_group_name, excl_county_div.id, chart_div.id, chart_update_url, 'Exclude Counties: ');
+        make_exclcounty_dropdown(data_group_name, excl_county_div.id, chart_div.id, chart_update_url, 'Exclude Counties: ', chart_name);
       }
 
       // make slider if 'rolling_window' exists
       if (default_filters.hasOwnProperty('rolling_window')){
-        make_slider(data_group_name, controls_div.id, chart_div.id, chart_update_url, 'rolling_window', 'Rolling Avg Days: ', {'min': 1, 'max': 21, 'value': 14});
+        make_slider(data_group_name, controls_div.id, chart_div.id, chart_update_url, 'rolling_window', 'Rolling Avg Days: ', {'min': 1, 'max': 21, 'value': 14}, chart_name);
       }
 
       // make slider if 'top_n' exists
       if (default_filters.hasOwnProperty('top_n')){
-        make_slider(data_group_name, controls_div.id, chart_div.id, chart_update_url, 'top_n', 'Top n Counties: ', {'min': 1, 'max': 15, 'value': 10});
+        make_slider(data_group_name, controls_div.id, chart_div.id, chart_update_url, 'top_n', 'Top n Counties: ', {'min': 1, 'max': 15, 'value': 10}, chart_name);
       }
 
       // make frequency button if 'frequency' exists
       if (default_filters.hasOwnProperty('frequency')) {
-        make_button_dropdown(data_group_name, controls_div.id, chart_div.id, chart_update_url, {'frequency': ['Daily', 'Cumulative']}, 'Frequency: ');
+        make_button_dropdown(data_group_name, controls_div.id, chart_div.id, chart_update_url, {'frequency': ['Daily', 'Cumulative']}, 'Frequency: ', chart_name);
       }
 
       // make data_type button if 'data_type' exists
       if (default_filters.hasOwnProperty('data_type')) {
-        make_button_dropdown(data_group_name, controls_div.id, chart_div.id, chart_update_url, {'data_type': ['Infections', 'Deaths']}, 'Data Type: ');
+        make_button_dropdown(data_group_name, controls_div.id, chart_div.id, chart_update_url, {'data_type': ['Infections', 'Deaths']}, 'Data Type: ', chart_name);
       }
 
       updateChart(chart_div.id, chart_update_url, default_filters);
@@ -425,6 +422,24 @@
           }
           make_chart(filters, 'state_by_county', 'Counties by State', '/state_by_county_chart/');
         })
+        .then(() => {
+          // numbers by political affiliation of states
+          var filters = { 'frequency': 'daily',
+                          'data_type': 'infections',
+                          'rolling_window': 14,
+                          // 'exclude_states': null
+                        }
+          make_chart(filters, 'pollitical_affiliation', 'Political Affiliation', '/political_affiliation/');
+        })
+        .then(() => {
+          // numbers by top states
+          var filters = { 'states': null,
+                          'data_type': 'infections',
+                          'top_n': 15,
+                          // 'exclude_states': null
+                        }
+          make_chart(filters, 'top_states', 'Top States', '/top_states/');
+        })
         .catch( error => console.log(error))
 
     });
@@ -434,13 +449,66 @@
 </head>
 
 <body>
-<!--  <div class="container m-3" id="state-totals">-->
-<!--    <h3 class="row p-2" style="background-color: darkseagreen">State Totals</h3>-->
-<!--    <div class="row">-->
-<!--        <div class="col-2 mt-2" id="state_totals_controls"></div>-->
-<!--        <div class='col-10' id="state-totals-chart"></div>-->
-<!--    </div>-->
-<!--  </div>-->
+  <div class="header" id="paypalheader">
+    <!--    https://www.w3schools.com/howto/howto_js_sticky_header.asp-->
+    <script>
+      // When the user scrolls the page, execute myFunction
+      window.onscroll = function() {myFunction()};
+
+      // Get the header
+      var header = document.getElementById("paypalheader");
+
+      // Get the offset position of the navbar
+      var sticky = header.offsetTop;
+
+      // Add the sticky class to the header when you reach its scroll position.
+      // Remove "sticky" when you leave the scroll position
+      function myFunction() {
+        if (window.pageYOffset > sticky) {
+          header.classList.add("sticky");
+        } else {
+          header.classList.remove("sticky");
+        }
+      }
+    </script>
+    <div class="row m-3 justify-content-center">
+      <button class="btn btn-warning" type="button" data-toggle="collapse" data-target="#collapsepaypal" aria-expanded="false" aria-controls="collapseExample">
+        Like this? Show your appreciation!
+      </button>
+    </div>
+    <div class="collapse" id="collapsepaypal">
+      <div class="card card-body">
+        <div class='row justify-content-center' id="paypal-button-container"></div>
+
+        <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD" data-sdk-integration-source="button-factory"></script>
+        <script>
+          paypal.Buttons({
+              style: {
+                  shape: 'rect',
+                  color: 'gold',
+                  layout: 'horizontal',
+                  label: 'paypal',
+              },
+              createOrder: function(data, actions) {
+                  return actions.order.create({
+                      purchase_units: [{
+                          amount: {
+                              value: '5'
+                          }
+                      }]
+                  });
+              },
+              onApprove: function(data, actions) {
+                  return actions.order.capture().then(function(details) {
+                      alert('Transaction completed by ' + details.payer.name.given_name + '!');
+                  });
+              }
+          }).render('#paypal-button-container');
+        </script>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>
 

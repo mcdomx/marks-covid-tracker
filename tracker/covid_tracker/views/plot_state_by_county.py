@@ -21,11 +21,6 @@ def plot_state_by_county_chart(request, state='Massachusetts', exclude_counties=
 
     state = ' '.join([word.capitalize() for word in state.split(' ')])
 
-    for p in [state, exclude_counties, top_n, data_type]:
-        print(p)
-
-
-
     # set dataframes
     confirmed_us_df = get_dataframe('confirmed_US')
     deaths_us_df = get_dataframe('deaths_US')

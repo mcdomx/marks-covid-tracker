@@ -18,6 +18,8 @@ from django.urls import path, re_path
 from .views import views
 from .views import plot_state_totals
 from .views import plot_state_by_county
+from .views import political_affiliation
+from .views import plot_top_states
 
 urlpatterns = [
     # Default route
@@ -28,4 +30,6 @@ urlpatterns = [
     # re_path('get_counties[\/|\?].*', views.get_counties, name='get_counties'),
     re_path(r"state_chart[\/|\?].*", plot_state_totals.plot_state_chart, name='plot_state_totals'),
     re_path(r"state_by_county_chart[\/|\?].*", plot_state_by_county.plot_state_by_county_chart, name='plot_state_by_county'),
+    re_path(r"political_affiliation[\/|\?].*", political_affiliation.plot_affiliation, name='political_affiliation'),
+    re_path(r"top_states[\/|\?].*", plot_top_states.plot_top_states, name='top_states'),
 ]
