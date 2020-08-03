@@ -9,20 +9,20 @@ from django.http import JsonResponse
 from .helpers import *
 
 
-def plot_top_states(request, states=None, top_n=15, data_type='infections', exclude_states: list = None):
+def plot_top_states(request, states=None, top_n_states=15, data_type='infections', exclude_states: list = None):
+
+    top_n = top_n_states
 
     if request is not None:
         states = request.GET.get('states', None)
         data_type = request.GET.get('data_type', 'infections').lower()
-        top_n = int(request.GET.get('top_n', 15))
+        top_n = int(request.GET.get('top_n_states', 15))
         exclude_states = request.GET.get('exclude_states', False)
 
     if states is 'null':
         states = None
     if exclude_states is 'null':
         exclude_states = False
-
-    print("EXCL STATES: ", exclude_states)
 
     # make sure the top_n is between 3 and 20
     if top_n < 3:
@@ -51,7 +51,8 @@ def plot_top_states(request, states=None, top_n=15, data_type='infections', excl
 
     p = figure(x_range=FactorRange(*factors), plot_height=500, plot_width=900,
                y_axis_type='linear',  y_axis_label=data_type,
-               toolbar_location=None, tools=[hover], title="Confirmed Cases by State")
+               toolbar_location=None, tools=[hover], title=f"Cumulative {data_type.capitalize()} by State")
+    p.title.text_font_size = '12pt'
     p.yaxis.formatter = NumeralTickFormatter(format="0,000")
 
     for i, state in enumerate(states):

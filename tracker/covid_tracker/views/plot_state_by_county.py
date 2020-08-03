@@ -8,12 +8,14 @@ from django.http import JsonResponse
 from .helpers import *
 
 
-def plot_state_by_county_chart(request, state='Massachusetts', exclude_counties=False, top_n=15, data_type='infections'):
+def plot_state_by_county_chart(request, state='Massachusetts', exclude_counties=False, top_n_counties=15, data_type='infections'):
+
+    top_n = top_n_counties
 
     if request is not None:
         state = request.GET.get('state', 'Massachusetts')
         exclude_counties = request.GET.get('exclude_counties', False)
-        top_n = int(request.GET.get('top_n', 15))
+        top_n = int(request.GET.get('top_n_counties', 15))
         data_type = request.GET.get('data_type', 'infections').lower()
 
     if exclude_counties == 'null':
@@ -43,13 +45,13 @@ def plot_state_by_county_chart(request, state='Massachusetts', exclude_counties=
     hover.tooltips = [
         ("County", "@county"),
         ("Date", "@date"),
-        (data_type.capitalize(), "@val"),
+        (data_type.capitalize(), "@val{0,0}"),
         ("Rank", "@ranking"),
     ]
 
     p = figure(x_range=FactorRange(*factors), plot_height=500, plot_width=900,
                y_axis_type='linear', y_axis_label=data_type,
-               toolbar_location=None, tools=[hover], title=f"Cumulative New {data_type.capitalize()} by County")
+               toolbar_location=None, tools=[hover], title=f"Cumulative {data_type.capitalize()} by County")
     p.title.text_font_size = '12pt'
     p.yaxis.formatter = NumeralTickFormatter(format="0,000")
 

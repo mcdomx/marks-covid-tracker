@@ -30,7 +30,7 @@ political_affiliations = {'American Samoa': 'na',
                           'Arizona': 'red',
                           'Arkansas': 'red',
                           'California': 'blue',
-                          'Colorado': 'purple',
+                          'Colorado': 'blue',
                           'Connecticut': 'blue',
                           'Delaware': 'blue',
                           'District of Columbia': 'blue',
@@ -39,28 +39,28 @@ political_affiliations = {'American Samoa': 'na',
                           'Hawaii': 'blue',
                           'Idaho': 'red',
                           'Illinois': 'blue',
-                          'Indiana': 'purple',
+                          'Indiana': 'red',
                           'Iowa': 'red',
-                          'Kansas': 'red',
-                          'Kentucky': 'red',
-                          'Louisiana': 'red',
+                          'Kansas': 'blue',
+                          'Kentucky': 'blue',
+                          'Louisiana': 'blue',
                           'Maine': 'blue',
-                          'Maryland': 'blue',
-                          'Massachusetts': 'blue',
+                          'Maryland': 'red',
+                          'Massachusetts': 'red',
                           'Michigan': 'blue',
                           'Minnesota': 'blue',
                           'Mississippi': 'red',
                           'Missouri': 'red',
-                          'Montana': 'red',
+                          'Montana': 'blue',
                           'Nebraska': 'red',
-                          'Nevada': 'purple',
-                          'New Hampshire': 'purple',
+                          'Nevada': 'blue',
+                          'New Hampshire': 'red',
                           'New Jersey': 'blue',
-                          'New Mexico': 'purple',
+                          'New Mexico': 'blue',
                           'New York': 'blue',
-                          'North Carolina': 'purple',
+                          'North Carolina': 'blue',
                           'North Dakota': 'red',
-                          'Ohio': 'purple',
+                          'Ohio': 'red',
                           'Oklahoma': 'red',
                           'Oregon': 'blue',
                           'Pennsylvania': 'blue',
@@ -70,8 +70,8 @@ political_affiliations = {'American Samoa': 'na',
                           'Tennessee': 'red',
                           'Texas': 'red',
                           'Utah': 'red',
-                          'Vermont': 'blue',
-                          'Virginia': 'purple',
+                          'Vermont': 'red',
+                          'Virginia': 'blue',
                           'Washington': 'blue',
                           'West Virginia': 'red',
                           'Wisconsin': 'blue',
@@ -99,7 +99,8 @@ def get_dataframe(dataset, file_path: str = FILE_PATH) -> pd.DataFrame:
         return f"{s.County}, {s.Province_State}"
 
     f = os.path.join(file_path, file_name)
-    print(os.path.isfile(f), f)
+    if not os.path.isfile(f):
+        logging.error(f"{f} is not a file.")
 
     df = pd.DataFrame()
     if os.path.isfile(f):
@@ -156,6 +157,11 @@ ATTR_COLS = ['UID', 'iso2', 'iso3', 'code3', 'FIPS', 'County', 'Province_State',
              'Lat', 'Long_', 'Combined_Key', 'political_affiliation', 'geometry', 'population']
 DATE_COLS_TEXT = [c for c in get_dataframe('confirmed_US').columns if c not in ATTR_COLS]
 DATE_COLS_DATES = pd.to_datetime(DATE_COLS_TEXT)
+
+
+def update_globals():
+    DATE_COLS_TEXT = [c for c in get_dataframe('confirmed_US').columns if c not in ATTR_COLS]
+    DATE_COLS_DATES = pd.to_datetime(DATE_COLS_TEXT)
 
 
 # SUPPORT FUNCTIONS

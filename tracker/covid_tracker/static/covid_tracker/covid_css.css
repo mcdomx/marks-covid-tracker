@@ -16,7 +16,7 @@
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background: #4CAF50;
+  background: #4caf50;
   cursor: grab;
 }
 
@@ -35,6 +35,18 @@
   background: rgba(139, 181, 139, 0.87);
   color: #f1f1f1;
 }
+
+/* Style the footer */
+#footer-section {
+  padding: 8px 10px;
+  background-color: rgba(139, 181, 139);
+  color: #f1f1f1;
+  position: fixed;
+  height: 60px;
+  bottom: 0;
+  width: 100%;
+}
+
 
 /* Page content */
 .content {
@@ -56,3 +68,8 @@
 #paypalheader {
   z-index: 5;
 }
+
+.card-text {
+  color: #2a496a;
+}
+

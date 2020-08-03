@@ -20,8 +20,8 @@ def plot_affiliation(request, frequency='daily', rolling_window=14, exclude_stat
     if exclude_states == 'null':
         exclude_counties = False
 
-    for p in [frequency, rolling_window, exclude_states, data_type]:
-        print(p)
+    # for p in [frequency, rolling_window, exclude_states, data_type]:
+    #     print(p)
 
     df = get_dataframe('confirmed_US') if data_type == 'infections' else get_dataframe('deaths_US')
 
@@ -48,6 +48,7 @@ def plot_affiliation(request, frequency='daily', rolling_window=14, exclude_stat
     # setup figure
     p = figure(x_range=FactorRange(*factors), plot_height=500, plot_width=900, y_axis_label=data_type,
                toolbar_location=None, tools=[hover], title=f"New Infections{' by Day' if frequency=='daily' else ''}")
+    p.title.text_font_size = '12pt'
     p.yaxis.formatter = NumeralTickFormatter(format="0,000")
 
     source_red = ColumnDataSource(data=dict(date=factors, val=plot_data_red,

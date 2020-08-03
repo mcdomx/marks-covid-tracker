@@ -53,7 +53,7 @@ def plot_state_chart(request, state="United States", county='All', frequency='da
     hover = HoverTool()
     hover.tooltips = [
         ("Date", "@date"),
-        (data_type, "@val"),
+        (data_type.capitalize(), "@val{0,0}"),
         (f"{rolling_window}-day Avg", "@rolling_avg{0,0.0}")
     ]
 
