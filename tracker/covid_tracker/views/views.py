@@ -18,12 +18,12 @@ def get_states(request):
 
 def refresh_git(request):
     g = git.cmd.Git('covid_tracker/COVID-19')
-    g.pull()
+    rv = g.pull()
 
     update_globals()
     # print(os.getcwd())
     # os.system("cd COVID-19; git pull; cd ..")
-    return JsonResponse("Git refreshed", safe=False)
+    return JsonResponse(json.dumps(rv), safe=False)
 
 
 def get_counties(request):
@@ -40,11 +40,10 @@ def index_view(request):
     :return:
     """
 
+    # refresh git
     logging.info(refresh_git(request))
 
     region_df = get_dataframe('confirmed_US')[['Province_State', 'County']]
-
-    # states = ['United States'] + list(df.Province_State.unique())
     region_melt = pd.melt(region_df, id_vars='Province_State', value_vars='County')[['Province_State', 'value']]
     states = region_melt['Province_State'].to_list()
 
@@ -53,4 +52,5 @@ def index_view(request):
         counties = ['All'] + region_melt[region_melt['Province_State'] == s]['value'] .to_list()
         region_dict.update({s: counties})
 
-    return render(request, 'covid_tracker/home.html', {"states": json.dumps(region_dict), "political_affiliations": json.dumps(political_affiliations)})
+    return render(request, 'covid_tracker/home.html', {"states": json.dumps(region_dict),
+                                                       "political_affiliations": json.dumps(political_affiliations)})
