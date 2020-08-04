@@ -9,6 +9,22 @@ from django.http import JsonResponse
 from .helpers import *
 
 
+def _get_plot_data(_data_type, _top_n, _exclude_states):
+
+    if _data_type == 'infections':
+        df = get_df_by_state(get_dataframe('confirmed_US'))
+    else:
+        df = get_df_by_state(get_dataframe('deaths_US'))
+
+    rankings = get_rankings(df, top_n=_top_n)
+    df = df.loc[rankings.index]
+
+    if _exclude_states:
+        df = df[~df.Province_State.isin(_exclude_states)]
+
+    return df
+
+
 def plot_top_states(request, states=None, top_n_states=15, data_type='infections', exclude_states: list = None):
 
     top_n = top_n_states
@@ -30,12 +46,14 @@ def plot_top_states(request, states=None, top_n_states=15, data_type='infections
     elif top_n > 20:
         top_n = 20
 
-    df = get_df_by_state(get_dataframe('confirmed_US') if data_type == 'infections' else get_dataframe('deaths_US'))
-    rankings = get_rankings(df, top_n=top_n)
-    df = df.loc[rankings.index]
+    # df = get_df_by_state(get_dataframe('confirmed_US') if data_type == 'infections' else get_dataframe('deaths_US'))
+    # rankings = get_rankings(df, top_n=top_n)
+    # df = df.loc[rankings.index]
+    #
+    # if exclude_states:
+    #     df = df[~df.Province_State.isin(exclude_states)]
 
-    if exclude_states:
-        df = df[~df.Province_State.isin(exclude_states)]
+    df = _get_plot_data(data_type, top_n, exclude_states)
 
     states = df.Province_State.unique()
 
@@ -49,7 +67,7 @@ def plot_top_states(request, states=None, top_n_states=15, data_type='infections
         ("Rank", "@ranking"),
     ]
 
-    p = figure(x_range=FactorRange(*factors), plot_height=500, plot_width=900,
+    p = figure(x_range=FactorRange(*factors), sizing_mode='stretch_both',  # plot_height=500, plot_width=900,
                y_axis_type='linear',  y_axis_label=data_type, output_backend="webgl",
                toolbar_location=None, tools=[hover], title=f"Cumulative {data_type.capitalize()} by State")
     p.title.text_font_size = '12pt'

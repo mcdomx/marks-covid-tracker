@@ -69,7 +69,7 @@
                     chart_div.setAttribute('data-url', finalUri);
                 }).catch((error) => {
                     var chart_div = document.querySelector(divIdWithHash);
-                    chart_div.innerHTML = "<img style=\"height:300px;width:400px\" src={% static 'airpollution/assets/img/tech-snag.png' %}>";
+                    chart_div.innerHTML = "<img src={% static 'covid_tracker/assets/tech-snag.png' %}>";
                     chart_div.setAttribute('data-url', finalUri);
                 });
 
@@ -418,6 +418,8 @@
 
       var content_div = document.createElement('div');
       content_div.className = 'row';
+      content_div.style.height = "500px";
+      content_div.style.width = "900px";
       section_div.appendChild(content_div);
 
       var controls_div = document.createElement('div');
@@ -426,8 +428,7 @@
       content_div.appendChild(controls_div);
 
       var chart_div = document.createElement('div');
-      chart_div.className = 'col-10 mx-auto my-auto';
-      // chart_div.setAttribute('style', 'height: 100% width: 100%');
+      chart_div.className = 'col-9 mx-auto my-auto';
       chart_div.id = chart_name + '_chart';
       content_div.appendChild(chart_div);
 

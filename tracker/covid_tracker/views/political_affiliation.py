@@ -8,6 +8,16 @@ from django.http import JsonResponse
 from .helpers import *
 
 
+def _get_plot_data(_data_type):
+
+    if _data_type == 'infections':
+        df = get_dataframe('confirmed_US')
+    else:
+        df = get_dataframe('deaths_US')
+
+    return df
+
+
 def plot_affiliation(request, frequency='daily', rolling_window=14, exclude_states=[], data_type='infections'):
     """Plots single area.  Give a single row."""
 
@@ -23,7 +33,9 @@ def plot_affiliation(request, frequency='daily', rolling_window=14, exclude_stat
     # for p in [frequency, rolling_window, exclude_states, data_type]:
     #     print(p)
 
-    df = get_dataframe('confirmed_US') if data_type == 'infections' else get_dataframe('deaths_US')
+    # df = get_dataframe('confirmed_US') if data_type == 'infections' else get_dataframe('deaths_US')
+
+    df = _get_plot_data(data_type)
 
     if frequency == 'daily':
         all_data = get_by_day(df)
@@ -46,7 +58,8 @@ def plot_affiliation(request, frequency='daily', rolling_window=14, exclude_stat
     ]
 
     # setup figure
-    p = figure(x_range=FactorRange(*factors), plot_height=500, plot_width=900, y_axis_label=data_type, output_backend="webgl",
+    p = figure(x_range=FactorRange(*factors), sizing_mode='stretch_both',  #plot_height=500, plot_width=900,
+               y_axis_label=data_type, output_backend="webgl",
                toolbar_location=None, tools=[hover], title=f"New Infections{' by Day' if frequency=='daily' else ''}")
     p.title.text_font_size = '12pt'
     p.yaxis.formatter = NumeralTickFormatter(format="0,000")
@@ -56,9 +69,10 @@ def plot_affiliation(request, frequency='daily', rolling_window=14, exclude_stat
     source_blue = ColumnDataSource(data=dict(date=factors, val=plot_data_blue,
                                              rolling_avg=pd.Series(plot_data_blue).rolling(
                                                  rolling_window).mean().values))
-    source_purple = ColumnDataSource(data=dict(date=factors, val=plot_data_purple,
-                                               rolling_avg=pd.Series(plot_data_purple).rolling(
-                                                   rolling_window).mean().values))
+    if plot_data_purple.any():
+        source_purple = ColumnDataSource(data=dict(date=factors, val=plot_data_purple,
+                                                   rolling_avg=pd.Series(plot_data_purple).rolling(
+                                                       rolling_window).mean().values))
 
     b_red = p.vbar(x='date', top='val', source=source_red, color='red', width=.5, alpha=.5)
     b_blue = p.vbar(x='date', top='val', source=source_blue, color='blue', width=.5, alpha=.5)
@@ -68,8 +82,11 @@ def plot_affiliation(request, frequency='daily', rolling_window=14, exclude_stat
                        legend_label=f"{rolling_window}-Day Rolling Average Red")
         l_blue = p.line(x='date', y='rolling_avg', source=source_blue, color='blue', width=3,
                         legend_label=f"{rolling_window}-Day Rolling Average Blue")
-        l_purple = p.line(x='date', y='rolling_avg', source=source_purple, color='purple', width=3,
-                          legend_label=f"{rolling_window}-Day Rolling Average Purple")
+
+        if plot_data_purple.any():
+            l_purple = p.line(x='date', y='rolling_avg', source=source_purple, color='purple', width=3,
+                              legend_label=f"{rolling_window}-Day Rolling Average Purple")
+
         p.legend.location = 'top_left'
 
     p.xaxis.major_label_orientation = 1
