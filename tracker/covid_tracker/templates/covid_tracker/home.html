@@ -5,7 +5,8 @@
 <head>
   <meta charset="utf-8">
   <title>Mark's COVID Tracker</title>
-  <link rel="stylesheet" href={% static "covid_tracker/covid_css.css" %}>
+
+  <link rel="stylesheet" href={% static 'covid_tracker/covid_css.css' %}>
   <script src="https://cdn.bokeh.org/bokeh/release/bokeh-2.1.1.min.js"
         crossorigin="anonymous"></script>
   <script src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.1.1.min.js"
@@ -18,6 +19,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
   {% csrf_token %}
+
   <script type="text/javascript">
 
     const states_dict = JSON.parse("{{ states|escapejs }}");
@@ -50,7 +52,7 @@
 
       // show pre-loading
       // chart_div.innerHTML = "<img style=\"height:400px\" src={% static 'covid_tracker/assets/pre-loader-1.gif' %}>";
-      chart_div.innerHTML = "<img style='height:100px' src={% static 'covid_tracker/assets/pre-loader-4.gif' %}>";
+      chart_div.innerHTML = "<img style='height:100px' src=\"{% static 'covid_tracker/assets/pre-loader-4.gif' %}\">";
       // chart_div.innerHTML = "<iframe src=\"https://giphy.com/embed/dUf4MkUk6GpuMDrNbj\" width=\"100%\" height=\"100%\" style=\"position:absolute\" frameBorder=\"0\" class=\"giphy-embed\" allowFullScreen></iframe>"
 
 

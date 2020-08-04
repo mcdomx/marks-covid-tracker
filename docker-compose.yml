@@ -1,0 +1,12 @@
+version: '3.1'
+
+services:
+  covid_tracker:
+    image: covid_tracker
+    restart: always
+    environment:
+      - WORKSPACE=PROD
+    env_file:
+      - ./.env
+    ports:
+      - 8000:8000

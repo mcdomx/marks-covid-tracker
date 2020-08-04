@@ -40,6 +40,8 @@ def index_view(request):
     :return:
     """
 
+    logging.info(refresh_git(request))
+
     region_df = get_dataframe('confirmed_US')[['Province_State', 'County']]
 
     # states = ['United States'] + list(df.Province_State.unique())

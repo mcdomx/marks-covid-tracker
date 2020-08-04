@@ -1,6 +1,5 @@
 #!/bin/bash
 cd /app/ || exit
-#python manage.py makemigrations
 python manage.py migrate
 
 echo $WORKSPACE

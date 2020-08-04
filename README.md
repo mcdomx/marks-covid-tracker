@@ -18,3 +18,26 @@ To add new visualization:
 3. Update the javascript to make_chart() on the DomLoaded function.
 
 4. Update the urls.py
+
+
+Serving Static Files
+(https://dev.to/learndjango/django-static-files-tutorial-1fg7)
+For production, static files are centrally collectef using `python manage.py collectstatic`.  This will store the static files into a directory identified in settings as 'STATIC_ROOT'.  We then use Whitenoise to serve the static files in production.
+
+This configuration requires several new variables in the settings.py confuration under the static files section.
+
+Important: changes to static files under the app directory will require you to run `python manage.py collectstatic` to update the centrally managed static files.
+
+This will allow the application to run using a wsgi configuration for production.
+
+`gunicorn --bind 0.0.0.0:8000 --workers 4 --timeout 600 tracker.wsgi`
+
+DOCKER
+The docker image can be built using:
+`docker build . -t covid_tracker`
+
+A container from this image can be started via:
+`docker run --rm --env-file ./.env -it -p 8080:8000 covid_tracker` 
+
+AZURE
+`az acr build --image covid_tracker --registry mcdomx --file Dockerfile .`
