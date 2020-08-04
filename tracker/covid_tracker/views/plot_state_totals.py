@@ -8,6 +8,8 @@ from django.http import JsonResponse
 from .helpers import *
 
 
+
+
 def plot_state_chart(request, state="United States", county='All', frequency='daily', data_type='infections', rolling_window=14):
     """Plots single area.  Give a single row."""
     if request is not None:
@@ -59,7 +61,7 @@ def plot_state_chart(request, state="United States", county='All', frequency='da
 
     # setup figure
     p = figure(x_range=FactorRange(*factors), plot_height=500, plot_width=900,
-               y_axis_type='linear', y_axis_label=data_type,
+               y_axis_type='linear', y_axis_label=data_type, output_backend="webgl",
                toolbar_location=None, tools=[hover], title=f"{state} New {data_type.capitalize()}{' by Day' if frequency == 'daily' else ''}")
     p.title.text_font_size = '12pt'
     p.yaxis.formatter = NumeralTickFormatter(format="0,000")

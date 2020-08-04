@@ -46,7 +46,7 @@ def plot_affiliation(request, frequency='daily', rolling_window=14, exclude_stat
     ]
 
     # setup figure
-    p = figure(x_range=FactorRange(*factors), plot_height=500, plot_width=900, y_axis_label=data_type,
+    p = figure(x_range=FactorRange(*factors), plot_height=500, plot_width=900, y_axis_label=data_type, output_backend="webgl",
                toolbar_location=None, tools=[hover], title=f"New Infections{' by Day' if frequency=='daily' else ''}")
     p.title.text_font_size = '12pt'
     p.yaxis.formatter = NumeralTickFormatter(format="0,000")

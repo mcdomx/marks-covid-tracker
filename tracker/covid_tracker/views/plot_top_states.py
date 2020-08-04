@@ -50,7 +50,7 @@ def plot_top_states(request, states=None, top_n_states=15, data_type='infections
     ]
 
     p = figure(x_range=FactorRange(*factors), plot_height=500, plot_width=900,
-               y_axis_type='linear',  y_axis_label=data_type,
+               y_axis_type='linear',  y_axis_label=data_type, output_backend="webgl",
                toolbar_location=None, tools=[hover], title=f"Cumulative {data_type.capitalize()} by State")
     p.title.text_font_size = '12pt'
     p.yaxis.formatter = NumeralTickFormatter(format="0,000")
