@@ -18,9 +18,8 @@ def get_states(request):
 
 def refresh_git(request):
     g = git.cmd.Git('covid_tracker/COVID-19')
-    # rv = g.fetch()
-    # print(rv)
-    rv = g.pull()
+    rv = g.fetch()
+    # rv = g.pull()
     print(rv)
 
     update_globals()

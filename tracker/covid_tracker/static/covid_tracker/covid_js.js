@@ -189,7 +189,7 @@ function make_button_dropdown(data_group_class, add_to_div, target_chart, chart_
   dropdown_div.appendChild(new_label)
 
   var new_btn = document.createElement('div');
-  new_btn.className = 'btn btn-sm btn-custom btn-block dropdown-toggle ' + data_group_class;
+  new_btn.className = 'btn rounded-0 btn-sm btn-custom btn-block dropdown-toggle ' + data_group_class;
   new_btn.href = '#';
   new_btn.role = 'button';
   new_btn.setAttribute('data-toggle', 'dropdown');
@@ -385,8 +385,7 @@ function make_chart(default_filters, chart_name, chart_title, chart_update_url){
 
   // add a space for the navbar
   var section_spacer = document.createElement('div');
-  // section_spacer.setAttribute('style', 'height=50px');
-  section_spacer.style.height = '70px';
+  section_spacer.style.height = '30px';
   section_div.appendChild(section_spacer);
 
   // add chart to the navbar
@@ -502,9 +501,15 @@ function add_footer() {
 
 }
 
+function clear_div(div_id) {
+  var clear_me = document.getElementById(div_id);
+  clear_me.innerText = '';
+}
+
 function draw_covid_tracker() {
   fetch('/refresh_git')
     .then(response => console.log(response.json()))
+    .then(() => clear_div('chart-section'))
     .then(() => {
       // infections by state
       var filters = {

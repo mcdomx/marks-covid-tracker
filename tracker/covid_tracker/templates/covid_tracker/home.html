@@ -34,7 +34,7 @@
 
 </head>
 
-<body data-spy="scroll" data-target=".navbar" data-offset="50">
+<body data-spy="scroll" data-target=".navbar" data-offset="90">
 
     <nav class="navbar navbar-expand-md navbar-dark fixed-top">
       <a class="navbar-brand h3 mb-0" id="brand_title" href="#">Mark's Covid Tracker</a>
@@ -103,8 +103,18 @@
 <!--    <p>The data behind these charts originates from is content is from Johns Hopkins University.</p>-->
 <!--  </div>-->
 
-  <div id="chart-section"></div>
-  <div style="height: 60px"></div>
+<!--  <div class="jumbotron">-->
+    <div style="height: 60px"></div>
+    <div class="alert alert-dark w-50 mx-auto my-auto" role="alert">
+      <p class="lead ">This tracker is based on data from <a href="https://github.com/CSSEGISandData/COVID-19">John's Hopkins University</a>. The charts below are designed to present some of the pertinent COVID-19 reported trends.</p>
+    </div>
+<!--  </div>-->
+  <div id="chart-section">
+    <div class="w-25 mx-auto mt-5">
+      <img src="{% static 'covid_tracker/assets/loading.gif' %}" style="height: 125px; opacity: 0.5">
+    </div>
+  </div>
+  <div style="height: 80px"></div>
   <footer id='footer-section' class="fixed-bottom"></footer>
 
 
