@@ -16,7 +16,7 @@
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background: #4caf50;
+  background: darkseagreen;
   cursor: grab;
 }
 
@@ -24,27 +24,39 @@
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background: #4CAF50;
+  background: darkseagreen;
   cursor: grab;
 }
 
 /* fixed header */
 /* Style the header */
-.header {
-  padding: 8px 10px;
-  background: rgba(139, 181, 139, 0.87);
-  color: #f1f1f1;
-}
+/*.header {*/
+/*  padding: 8px 10px;*/
+/*  background: rgba(75, 127, 75, 1.0);*/
+/*  color: #f1f1f1;*/
+/*}*/
 
 /* Style the footer */
 #footer-section {
   padding: 8px 10px;
-  background-color: rgba(139, 181, 139);
+  background-color: rgb(45, 90, 45);
   color: #f1f1f1;
   position: fixed;
   height: 60px;
   bottom: 0;
   width: 100%;
+}
+
+.navbar {
+  background-color: rgb(45, 90, 45);
+}
+
+.btn-custom {
+  background-color: darkseagreen;
+}
+
+.title-custom {
+  background-color: darkseagreen;
 }
 
 
@@ -71,5 +83,18 @@
 
 .card-text {
   color: #2a496a;
+}
+
+#chart-section {
+  position: relative;
+}
+
+/* To Support Smmoth Scrolling - doesn't work with Safari */
+html {
+  scroll-behavior: smooth;
+}
+
+#brand_title {
+    color: #d0c03b;
 }
 
