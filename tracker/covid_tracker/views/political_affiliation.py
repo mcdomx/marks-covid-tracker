@@ -11,11 +11,11 @@ from .helpers import *
 def _get_plot_data(_data_type):
 
     if _data_type == 'infections':
-        df = get_dataframe('confirmed_US')
+        df_dict = get_dataframe('confirmed_US')
     else:
-        df = get_dataframe('deaths_US')
+        df_dict = get_dataframe('deaths_US')
 
-    return df
+    return df_dict
 
 
 def plot_affiliation(request, frequency='daily', rolling_window=14, exclude_states=[], data_type='infections'):
@@ -35,19 +35,24 @@ def plot_affiliation(request, frequency='daily', rolling_window=14, exclude_stat
 
     # df = get_dataframe('confirmed_US') if data_type == 'infections' else get_dataframe('deaths_US')
 
-    df = _get_plot_data(data_type)
+    df_dict = _get_plot_data(data_type)
+
+    # _, date_cols_text, date_cols_dates = get_column_groups(df)
+    df = df_dict['df']
+    date_cols_text = df_dict['date_cols_text']
+    date_cols_dates = df_dict['date_cols_dates']
 
     if frequency == 'daily':
         all_data = get_by_day(df)
     else:
         all_data = df.copy()
 
-    plot_data_red = all_data[all_data.political_affiliation == 'red'].sum()[DATE_COLS_TEXT].values
-    plot_data_blue = all_data[all_data.political_affiliation == 'blue'].sum()[DATE_COLS_TEXT].values
-    plot_data_purple = all_data[all_data.political_affiliation == 'purple'].sum()[DATE_COLS_TEXT].values
+    plot_data_red = all_data[all_data.political_affiliation == 'red'].sum()[date_cols_text].values
+    plot_data_blue = all_data[all_data.political_affiliation == 'blue'].sum()[date_cols_text].values
+    plot_data_purple = all_data[all_data.political_affiliation == 'purple'].sum()[date_cols_text].values
 
     # setup x axis groupings
-    factors = [(c.month_name(), str(c.day)) for c in DATE_COLS_DATES]
+    factors = [(c.month_name(), str(c.day)) for c in date_cols_dates]
 
     # setup Hover tool
     hover = HoverTool()

@@ -2,6 +2,7 @@ import os
 import logging
 import pandas as pd
 import geopandas as gpd
+import datetime
 
 # for census data used in Bubble maps
 from census import Census
@@ -81,7 +82,7 @@ political_affiliations = {'American Samoa': 'na',
 
 
 # GET CSV DATA, CLEAN DATA, AND PLACE INTO DICTIONARY FOR EASY ACCESS
-def get_dataframe(dataset, file_path: str = FILE_PATH) -> pd.DataFrame:
+def get_dataframe(dataset, file_path: str = FILE_PATH) -> dict:
     file_names = {
         'recovered_global': 'time_series_covid19_recovered_global.csv',
         'deaths_global': 'time_series_covid19_deaths_global.csv',
@@ -141,7 +142,7 @@ def get_dataframe(dataset, file_path: str = FILE_PATH) -> pd.DataFrame:
                 cols_to_remove.append(c)
     df.drop(columns=cols_to_remove, inplace=True)
 
-    # remove territories
+    # remove US territories
     if "Province_State" in df.columns:
         df = df[~df.Province_State.isin(territories)]
 
@@ -149,19 +150,49 @@ def get_dataframe(dataset, file_path: str = FILE_PATH) -> pd.DataFrame:
     if "Lat" in df.columns and "Long_" in df.columns:
         df = gpd.GeoDataFrame(df, geometry=gpd.points_from_xy(df.Long_, df.Lat))
 
-    return df
+    attr_cols, date_cols_text, date_cols_dates = get_column_groups(df)
+
+    return {'df': df, 'attr_cols': attr_cols, 'date_cols_text': date_cols_text, 'date_cols_dates': date_cols_dates}
 
 
 # OTHER GLOBAL VARIABLES
-ATTR_COLS = ['UID', 'iso2', 'iso3', 'code3', 'FIPS', 'County', 'Province_State', 'County_State', 'Country_Region',
-             'Lat', 'Long_', 'Combined_Key', 'political_affiliation', 'geometry', 'population']
-DATE_COLS_TEXT = [c for c in get_dataframe('confirmed_US').columns if c not in ATTR_COLS]
-DATE_COLS_DATES = pd.to_datetime(DATE_COLS_TEXT)
+# ATTR_COLS = ['UID', 'iso2', 'iso3', 'code3', 'FIPS', 'County', 'Province_State', 'County_State', 'Country_Region',
+#              'Lat', 'Long_', 'Combined_Key', 'political_affiliation', 'geometry', 'population']
+# DATE_COLS_TEXT = [c for c in get_dataframe('confirmed_US').columns if c not in ATTR_COLS]
+# DATE_COLS_DATES = pd.to_datetime(DATE_COLS_TEXT)
 
 
-def update_globals():
-    DATE_COLS_TEXT = [c for c in get_dataframe('confirmed_US').columns if c not in ATTR_COLS]
-    DATE_COLS_DATES = pd.to_datetime(DATE_COLS_TEXT)
+# def update_globals():
+#     DATE_COLS_TEXT = [c for c in get_dataframe('confirmed_US').columns if c not in ATTR_COLS]
+#     DATE_COLS_DATES = pd.to_datetime(DATE_COLS_TEXT)
+
+
+def get_column_groups(df):
+    # attr_cols = ['UID', 'iso2', 'iso3', 'code3', 'FIPS', 'County', 'Province_State', 'County_State', 'Country_Region',
+    #              'Lat', 'Long_', 'Combined_Key', 'political_affiliation', 'geometry', 'population']
+
+    date_cols_dates = pd.to_datetime(df.columns, errors='coerce')
+    date_cols_TF = [not pd.isnull(c) for c in date_cols_dates]
+    date_cols_dates = date_cols_dates[date_cols_TF]
+    date_cols_text = df.columns[date_cols_TF]
+    attr_cols = df.columns[[not c for c in date_cols_TF]]
+    # date_cols_text = []
+    # for c in df.columns:
+    #     try:
+    #         print(c)
+    #         datetime.datetime.strptime(c, '%Y-%m-%d')
+    #         date_cols_text.append(c)
+    #     except ValueError:
+    #         continue
+
+    # print(date_cols_text)
+    # date_cols_text = [c for c in df.columns if c not in attr_cols]
+    # date_cols_dates = pd.to_datetime(date_cols_text)
+
+    # for i, _ in enumerate(date_cols_text):
+    #     print(date_cols_text[i], date_cols_dates[i])
+
+    return attr_cols, date_cols_text, date_cols_dates
 
 
 # SUPPORT FUNCTIONS
@@ -176,30 +207,33 @@ def get_df_by_counties(_df, state) -> pd.DataFrame:
 
 
 def get_rankings(_df, top_n=None) -> list:
-    A_COLS = [c for c in _df.columns if c in ATTR_COLS]
+    attr_cols, date_cols_text, date_cols_dates = get_column_groups(_df)
+    a_cols = [c for c in _df.columns if c in attr_cols]
 
-    rv_df = _df[DATE_COLS_TEXT].rank(ascending=False)
-    rv_df = pd.concat([_df.loc[rv_df.index][A_COLS], rv_df], axis=1)
+    rv_df = _df[date_cols_text].rank(ascending=False)
+    rv_df = pd.concat([_df.loc[rv_df.index][a_cols], rv_df], axis=1)
 
     if top_n is not None:
-        return rv_df.nsmallest(top_n, DATE_COLS_TEXT[-1]).sort_values(by=DATE_COLS_TEXT[-1], ascending=True)
+        return rv_df.nsmallest(top_n, date_cols_text[-1]).sort_values(by=date_cols_text[-1], ascending=True)
 
-    return rv_df.sort_values(by=DATE_COLS_TEXT[-1])
+    return rv_df.sort_values(by=date_cols_text[-1])
 
 
 # get data per day
 def get_by_day(_df):
-    daily = _df[DATE_COLS_TEXT] - _df[DATE_COLS_TEXT].shift(axis=1)
-    attr_cols = set(_df.columns) - set(DATE_COLS_TEXT)
+    _, date_cols_text, _ = get_column_groups(_df)
+    daily = _df[date_cols_text] - _df[date_cols_text].shift(axis=1)
+    attr_cols = set(_df.columns) - set(date_cols_text)
     daily = pd.concat([_df[attr_cols], daily], axis=1)
 
     return daily
 
 
 def get_daily_growth_rate(_df):
+    _, date_cols_text, _ = get_column_groups(_df)
     _df = get_by_day(_df)
-    daily_rate = _df[DATE_COLS_TEXT] / _df[DATE_COLS_TEXT].shift(axis=1)
-    attr_cols = set(_df.columns) - set(DATE_COLS_TEXT)
+    daily_rate = _df[date_cols_text] / _df[date_cols_text].shift(axis=1)
+    attr_cols = set(_df.columns) - set(date_cols_text)
     daily_rate = pd.concat([_df[attr_cols], daily_rate], axis=1)
     daily_rate = daily_rate.fillna(1)
     return daily_rate

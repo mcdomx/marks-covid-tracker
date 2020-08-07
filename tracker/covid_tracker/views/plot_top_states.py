@@ -12,17 +12,20 @@ from .helpers import *
 def _get_plot_data(_data_type, _top_n, _exclude_states):
 
     if _data_type == 'infections':
-        df = get_df_by_state(get_dataframe('confirmed_US'))
-    else:
-        df = get_df_by_state(get_dataframe('deaths_US'))
+        df_dict = get_dataframe('confirmed_US')
 
-    rankings = get_rankings(df, top_n=_top_n)
-    df = df.loc[rankings.index]
+    else:
+        df_dict = get_dataframe('deaths_US')
+
+    df_dict['df'] = get_df_by_state(df_dict['df'])
+
+    rankings = get_rankings(df_dict['df'], top_n=_top_n)
+    df_dict['df'] = df_dict['df'].loc[rankings.index]
 
     if _exclude_states:
-        df = df[~df.Province_State.isin(_exclude_states)]
+        df_dict['df'] = df_dict['df'][~df_dict['df'].Province_State.isin(_exclude_states)]
 
-    return df
+    return df_dict
 
 
 def plot_top_states(request, states=None, top_n_states=15, data_type='infections', exclude_states: list = None):
@@ -53,11 +56,17 @@ def plot_top_states(request, states=None, top_n_states=15, data_type='infections
     # if exclude_states:
     #     df = df[~df.Province_State.isin(exclude_states)]
 
-    df = _get_plot_data(data_type, top_n, exclude_states)
+    df_dict = _get_plot_data(data_type, top_n, exclude_states)
+
+    # _, date_cols_text, date_cols_dates = get_column_groups(df)
+
+    df = df_dict['df']
+    date_cols_dates = df_dict['date_cols_dates']
+    date_cols_text = df_dict['date_cols_text']
 
     states = df.Province_State.unique()
 
-    factors = [(c.month_name(), str(c.day)) for c in DATE_COLS_DATES]
+    factors = [(c.month_name(), str(c.day)) for c in date_cols_dates]
 
     hover = HoverTool()
     hover.tooltips = [
@@ -78,8 +87,8 @@ def plot_top_states(request, states=None, top_n_states=15, data_type='infections
         try:
             source = ColumnDataSource(data=dict(date=factors,
                                                 state=[state] * len(factors),
-                                                val=df[df.Province_State == state][DATE_COLS_TEXT].values[0],
-                                                ranking=df[DATE_COLS_TEXT].rank(ascending=False)[
+                                                val=df[df.Province_State == state][date_cols_text].values[0],
+                                                ranking=df[date_cols_text].rank(ascending=False)[
                                                     df.Province_State == state].values[0])
                                       )
         except:

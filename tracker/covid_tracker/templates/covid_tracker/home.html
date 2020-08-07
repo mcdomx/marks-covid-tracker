@@ -17,7 +17,7 @@
 
   {% csrf_token %}
 
-<!--  Globals used in exetrnally stored application javascript-->
+<!--  Globals are to be used in externally stored application javascript-->
   <script defer>
     const states_dict = JSON.parse("{{ states|escapejs }}");
     const states_list = Object.keys(states_dict);

@@ -12,9 +12,15 @@ from .helpers import *
 def _get_plot_data(data_type, frequency, state, county):
     # set dataframes
     if data_type == 'infections':
-        df = get_dataframe('confirmed_US')
+        df_dict = get_dataframe('confirmed_US')
     else:
-        df = get_dataframe('deaths_US')
+        df_dict = get_dataframe('deaths_US')
+
+    # _, date_cols_text, date_cols_dates = get_column_groups(df)
+
+    df = df_dict['df']
+    date_cols_text = df_dict['date_cols_text']
+    date_cols_dates = df_dict['date_cols_dates']
 
     if frequency == 'daily':
         all_data = get_by_day(df)
@@ -22,15 +28,18 @@ def _get_plot_data(data_type, frequency, state, county):
         all_data = df.copy()
 
     if state == 'United States':
-        plot_data = all_data.sum()[DATE_COLS_TEXT].values
+        plot_data = all_data.sum()[date_cols_text].values
     else:
         if county == 'All':
-            plot_data = all_data[all_data.Province_State == state].sum()[DATE_COLS_TEXT].values
+            plot_data = all_data[all_data.Province_State == state].sum()[date_cols_text].values
         else:
             plot_data = all_data[(all_data.Province_State == state) & (all_data.County == county)].sum()[
-                DATE_COLS_TEXT].values
+                date_cols_text].values
 
-    return plot_data
+    # setup x axis groupings
+    factors = [(c.month_name(), str(c.day)) for c in date_cols_dates]
+
+    return plot_data, factors
 
 
 def plot_state_chart(request, state="United States", county='All', frequency='daily', data_type='infections', rolling_window=14):
@@ -45,10 +54,10 @@ def plot_state_chart(request, state="United States", county='All', frequency='da
     state = ' '.join([word.capitalize() for word in state.split(' ')])
     county = county.capitalize()
 
-    plot_data = _get_plot_data(data_type, frequency, state, county)
+    plot_data, factors = _get_plot_data(data_type, frequency, state, county)
 
-    # setup x axis groupings
-    factors = [(c.month_name(), str(c.day)) for c in DATE_COLS_DATES]
+    # # setup x axis groupings
+    # factors = [(c.month_name(), str(c.day)) for c in DATE_COLS_DATES]
 
     # setup Hover tool
     hover = HoverTool()

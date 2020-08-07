@@ -18,11 +18,11 @@ def get_states(request):
 
 def refresh_git(request):
     g = git.cmd.Git('covid_tracker/COVID-19')
-    rv = g.fetch()
-    # rv = g.pull()
+    # rv = g.fetch()
+    rv = g.pull()
     print(rv)
 
-    update_globals()
+    # update_globals()
     return JsonResponse(json.dumps(rv), safe=False)
 
 
@@ -43,7 +43,7 @@ def index_view(request):
     # refresh git
     logging.info(refresh_git(request))
 
-    region_df = get_dataframe('confirmed_US')[['Province_State', 'County']]
+    region_df = get_dataframe('confirmed_US')['df'][['Province_State', 'County']]
     region_melt = pd.melt(region_df, id_vars='Province_State', value_vars='County')[['Province_State', 'value']]
     states = region_melt['Province_State'].to_list()
 

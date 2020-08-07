@@ -1,6 +1,4 @@
-
-
-
+// JS file for covid_tracker plot setup
 function addFiltersToUri(uri, filters) {
   var finalUri = uri;
   var filterSuffixUri = '';
@@ -27,7 +25,7 @@ function updateChart(divId, uri, filters) {
 
   // show pre-loading
   // chart_div.innerHTML = "<img style=\"height:400px\" src={% static 'covid_tracker/assets/pre-loader-1.gif' %}>";
-  chart_div.innerHTML = "<img style='height:100px' src='" + static_path + "/assets/pre-loader-4.gif'>";
+  chart_div.innerHTML = "<img style='height:100px' src='" + static_path + "/assets/loading.gif'>";
   // chart_div.innerHTML = "<iframe src=\"https://giphy.com/embed/dUf4MkUk6GpuMDrNbj\" width=\"100%\" height=\"100%\" style=\"position:absolute\" frameBorder=\"0\" class=\"giphy-embed\" allowFullScreen></iframe>"
 
 
@@ -42,7 +40,7 @@ function updateChart(divId, uri, filters) {
                 chart_div.setAttribute('data-url', finalUri);
             }).catch((error) => {
                 var chart_div = document.querySelector(divIdWithHash);
-                chart_div.innerHTML = "<img src='" + static_path + "/assets/tech-snag.png'>";
+                chart_div.innerHTML = "<img style='height:100px' src='" + static_path + "/assets/tech-snag.png'><p>" + error + "</p>";
                 chart_div.setAttribute('data-url', finalUri);
             });
 
@@ -385,7 +383,7 @@ function make_chart(default_filters, chart_name, chart_title, chart_update_url){
 
   // add a space for the navbar
   var section_spacer = document.createElement('div');
-  section_spacer.style.height = '30px';
+  section_spacer.style.height = '60px';
   section_div.appendChild(section_spacer);
 
   // add chart to the navbar

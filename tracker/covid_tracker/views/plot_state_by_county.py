@@ -11,17 +11,18 @@ from .helpers import *
 def _get_plot_data(_state, _data_type, _top_n, _excl_counties):
 
     if _data_type == 'infections':
-        _df = get_df_by_counties(get_dataframe('confirmed_US'), state=_state)
+        _df_dict = get_dataframe('confirmed_US')
     else:
-        _df = get_df_by_counties(get_dataframe('deaths_US'), state=_state)
+        _df_dict = get_dataframe('deaths_US')
 
-    rankings = get_rankings(_df, top_n=_top_n)
-    _df = _df.loc[rankings.index]
+    _df_dict['df'] = get_df_by_counties(_df_dict['df'], state=_state)
+    rankings = get_rankings(_df_dict['df'], top_n=_top_n)
+    _df_dict['df'] = _df_dict['df'].loc[rankings.index]
 
     if _excl_counties:
-        _df = _df[~_df.County.isin(_excl_counties)]
+        _df_dict['df'] = _df_dict['df'][~_df_dict['df'].County.isin(_excl_counties)]
 
-    return _df
+    return _df_dict
 
 
 def plot_state_by_county_chart(request, state='Massachusetts', exclude_counties=False, top_n_counties=15, data_type='infections'):
@@ -39,9 +40,13 @@ def plot_state_by_county_chart(request, state='Massachusetts', exclude_counties=
 
     state = ' '.join([word.capitalize() for word in state.split(' ')])
 
-    df = _get_plot_data(_state=state, _data_type=data_type, _top_n=top_n, _excl_counties=exclude_counties)
+    df_dict = _get_plot_data(_state=state, _data_type=data_type, _top_n=top_n, _excl_counties=exclude_counties)
 
-    factors = [(c.month_name(), str(c.day)) for c in DATE_COLS_DATES]
+    df = df_dict['df']
+    date_cols_text = df_dict['date_cols_text']
+    date_cols_dates = df_dict['date_cols_dates']
+
+    factors = [(c.month_name(), str(c.day)) for c in date_cols_dates]
 
     hover = HoverTool()
     hover.tooltips = [
@@ -60,9 +65,9 @@ def plot_state_by_county_chart(request, state='Massachusetts', exclude_counties=
     for i, county in enumerate(df.County):
         source = ColumnDataSource(data=dict(date=factors,
                                             county=[county] * len(factors),
-                                            val=df[df.County == county][DATE_COLS_TEXT].values[0],
+                                            val=df[df.County == county][date_cols_text].values[0],
                                             ranking=
-                                            df[DATE_COLS_TEXT].rank(ascending=False)[df.County == county].values[0])
+                                            df[date_cols_text].rank(ascending=False)[df.County == county].values[0])
                                   )
 
         p.line('date', 'val', source=source, color=Category20[len(df.County)][i], line_width=2,
