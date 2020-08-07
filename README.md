@@ -7,10 +7,9 @@ This application is based on publicly available data from the Johns Hopkins Univ
 This page is hosted at:
 
 https://markscovidtracker.azurewebsites.net/
-
 (This is hosted with a free student account so the initial load time may be slow as the application wakes up)
 
-Although this site publishes COVID data, it can be used as s template to display any kind of data.  The creation of charts has been abstracted so that button filters are created based on a type of data.  Work still must be done to import new data and display new charts, but the Django framework for delivery can easily be reused.
+Although this site publishes COVID data, it can be used as a template to display any kind of data.  The creation of charts has been abstracted so that button filters are created based on a type of data.  Work still must be done to import new data and display new charts, but the Django framework for delivery can easily be reused.
 
 ## Example Visualizations
 Each chart can be filtered using buttons and scrollbars at the left of each chart.  All charts support rollover information.
@@ -128,5 +127,5 @@ The following command will build  an image and publish it to your Azure registry
     *  Otherwise, the entire plot returned from Django can be cached
 *  Put data into Postgres database
     *  Use separate Docker container that will auto-refresh as needed
-*   Warm-up takes long.  Creat static site that will provide feedback that application is loading.
+*   Warm-up takes long.  Create a static site that will provide feedback to the user that application is loading.
 
