@@ -19,7 +19,7 @@ https://markscovidtracker.azurewebsites.net/
 
 ![state totals](docs/top_states.png)
 
-## Application Architecture
+## Application Architecture Summary
 The application uses a Django web server to present various Bokeh visualizations of infection and death rates in the US by state, county and political affiliation.  Javascript is used to put the visualizations on the html page.  Interactions will call the Django server for an updated chart and insert it into the local page.  Data is gathered from the John's Hopkins GIT repo and is refreshed when the page is loaded.
 
 ## Quick Start
@@ -30,7 +30,7 @@ To use the tracker locally:
 
     `pip install pipenv`
 3.  Get a census application key (https://api.census.gov/data/key_signup.html)
-4.  Create a .env file and add variables as decribed below
+4.  Create a `.env` file in the root and add variables as described in the "Local Environment Variables" section below.
 5.  Launch the pipenv virtual environment
 
     `pipenv shell`
@@ -51,7 +51,7 @@ This can be anything you choose.
 
 Each of these variables must be created in a `.env` file saved in the root folder.
 
-## Execution
+## Alternative Execution Methods
 Once the local environment variables have been saved in a local `.env` file, the application can be run natively from Django or can be packaged as a Docker container.  Alternatively, the application can be run using a WSGI gunicorn wrapper.
 
 #### Run from Django
@@ -103,7 +103,6 @@ To add new visualization:
 4. Update the `tracker/tracker/covid_tracker/urls.py` file to include the new path.  The path must match the path name created when updating the `draw_covid_tracker()` function.
 
 ## Serving Static Files in Production
-(https://dev.to/learndjango/django-static-files-tutorial-1fg7)
 For production, static files are centrally collected using `python manage.py collectstatic`.  This will store the static files into a directory identified in settings as 'STATIC_ROOT'.  We then use Whitenoise to serve the static files in production.
 
 This configuration requires several new variables in the settings.py confuration under the static files section.  This is handled in the docker-entrypoint.sh script when publishing using Docker but will need to be manually executed if running a production instance from Django.
