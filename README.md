@@ -1,5 +1,5 @@
 # Mark's Covid Tracker
-###Django-based Covid Tracker presented with Bokeh Visualizations
+### Django-based Covid Tracker presented with Bokeh Visualizations
 
 This application is based on publicly available data from the Johns Hopkins University Center for Systems Science in Engineering.
 "Dong E, Du H, Gardner L. An interactive web-based dashboard to track COVID-19 in real time. Lancet Inf Dis. 20(5):533-534. doi: 10.1016/S1473-3099(20)30120-1"
@@ -52,7 +52,7 @@ This can be anything you choose.
 Each of these variables must be created in a `.env` file saved in the root folder.
 
 ## Execution
-Once the local environment variables have been saved in a local `.env` file, the application can be run natively from Django or can be packed as a Docker container.
+Once the local environment variables have been saved in a local `.env` file, the application can be run natively from Django or can be packaged as a Docker container.  Alternatively, the application can be run using a WSGI gunicorn wrapper.
 
 #### Run from Django
 To run from Django, navigate to the `tracker/tracker` directory:
