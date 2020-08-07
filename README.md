@@ -10,6 +10,10 @@ https://markscovidtracker.azurewebsites.net/
 
 (This is hosted with a free student account so the initial load time may be slow as the application wakes up)
 
+Although this site publishes COVID data, it can be used as s template to display any kind of data.  The creation of charts has been abstracted so that button filters are created based on a type of data.  Work still must be done to import new data and display new charts, but the Django framework for delivery can easily be reused.
+
+## Example Visualizations
+Each chart can be filtered using buttons and scrollbars at the left of each chart.  All charts support rollover information.
 
 ![state totals](docs/state_totals.png)
 
@@ -116,3 +120,13 @@ Before publishing to Azure, you will need an Azure account and need to login loc
 The following command will build  an image and publish it to your Azure registry:
 
 `az acr build --image covid_tracker --registry {your_registry_name} --file Dockerfile .`
+
+## Potential Improvements
+
+*  Cache data on user-side for speed improvements
+    *  This may require building the of bokeh plots in JavaScript
+    *  Otherwise, the entire plot returned from Django can be cached
+*  Put data into Postgres database
+    *  Use separate Docker container that will auto-refresh as needed
+*   Warm-up takes long.  Creat static site that will provide feedback that application is loading.
+
