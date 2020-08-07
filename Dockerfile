@@ -23,28 +23,10 @@ WORKDIR /app
 RUN pip install --upgrade pip
 RUN pip install pipenv
 
+# Get requirements.txt file by using pipenv
 COPY Pipfile* /tmp/
 RUN cd /tmp && pipenv lock --requirements > requirements.txt
 RUN pip install -r /tmp/requirements.txt
-
-#RUN set -ex && PIP_USER=1 pipenv install # --system --deploy
-#CMD pipenv shell
-
-
-#RUN pip install pandas \
-#                bokeh \
-#                numpy \
-#                geopandas \
-#                shapely \
-#                matplotlib \
-#                descartes \
-#                rtree \
-#                census \
-#                install \
-#                us \
-#                python-dotenv \
-#                flask \
-#                gunicorn
 
 COPY tracker /app/
 COPY docker-entrypoint.sh /app/
