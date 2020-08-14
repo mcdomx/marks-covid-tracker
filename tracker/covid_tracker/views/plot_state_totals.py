@@ -43,7 +43,18 @@ def _get_plot_data(data_type, frequency, state, county):
 
 
 def plot_state_chart(request, state="United States", county='All', frequency='daily', data_type='infections', rolling_window=14):
-    """Plots single area.  Give a single row."""
+    """
+    Plots the values for a selected state, county or the entire United States.
+
+    :param request:  The HTML request that should include values for 'state', 'county', 'frequency', 'data_type' and 'rolling_window'.  See the parameter descriptions below for contraints and defaults for each parameter.
+    :param state: (optional) Default 'Massachusetts'.  The name of the state to plot.
+    :param county: (optional) Default 'All'.  The county to plot or 'All' counties of a state of value is 'All'.
+    :param frequency: (optional) Default 'daily'.  Whether to plot daily or cumulative values.
+    :param data_type: (optional) Default 'infections'.  Plot 'infections' data or 'deaths' data.
+    :param rolling_window: (optional) Default 14.  The number of days to use when drawing the daily average line in the plot.
+
+    :return: A Bokeh JSON formatted plot that can be handled by JavaScript for HTML presentation.
+    """
     if request is not None:
         state = request.GET.get('state', 'United States')
         county = request.GET.get('county', 'All')

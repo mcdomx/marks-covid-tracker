@@ -29,6 +29,17 @@ def _get_plot_data(_data_type, _top_n, _exclude_states):
 
 
 def plot_top_states(request, states=None, top_n_states=15, data_type='infections', exclude_states: list = None):
+    """
+    Plot a line chart of values for the top n states in the US.  Can plot based on infections or deaths.  A list of states canbe provided which are exluded from the list.
+
+    :param request:  The HTML request that should include values for 'states', 'top_n_states', 'data_type' and 'exclude_states'.  See the parameter descriptions below for contraints and defaults for each parameter.
+    :param states: (optional)  Default is None.  A specific list of states that should be included in the plot.  When None is the value, the top_n states are plotted.
+    :param top_n_states: (optional) Default 15.  The top n number of states to plot.
+    :param data_type: (optional) Default is 'infections'.  Plot 'infections' or 'deaths'.
+    :param exclude_states: (optional) Default is None.  A list of the states to exclude from the plot.
+
+    :return: A Bokeh JSON formatted plot that can be handled by JavaScript for HTML presentation.
+    """
 
     top_n = top_n_states
 
@@ -49,16 +60,7 @@ def plot_top_states(request, states=None, top_n_states=15, data_type='infections
     elif top_n > 20:
         top_n = 20
 
-    # df = get_df_by_state(get_dataframe('confirmed_US') if data_type == 'infections' else get_dataframe('deaths_US'))
-    # rankings = get_rankings(df, top_n=top_n)
-    # df = df.loc[rankings.index]
-    #
-    # if exclude_states:
-    #     df = df[~df.Province_State.isin(exclude_states)]
-
     df_dict = _get_plot_data(data_type, top_n, exclude_states)
-
-    # _, date_cols_text, date_cols_dates = get_column_groups(df)
 
     df = df_dict['df']
     date_cols_dates = df_dict['date_cols_dates']

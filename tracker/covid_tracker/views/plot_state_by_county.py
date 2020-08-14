@@ -26,7 +26,18 @@ def _get_plot_data(_state, _data_type, _top_n, _excl_counties):
 
 
 def plot_state_by_county_chart(request, state='Massachusetts', exclude_counties=False, top_n_counties=15, data_type='infections'):
+    """
+    Plots a line chart of values by date for the counties in a provided state.  Not all counties are shown to avoid visual confusion.  The top_n counties defaults to 15 but can be set.  Infections are plotted by default, but 'deaths' can be plotted as well.  Counties can be excluded from the plot.
+    The function can be called with parameters in a request object or with specific parameters.  If a request object is supplied, other variables supplied are ignored.
 
+    :param request:  The HTML request that should include values for 'state', 'exclude_counties', 'top_n_counties' and 'data_type'.  See the parameter descriptions below for contraints and defaults for each parameter.
+    :param state: (optional) Default 'Massachusetts'.  The name of the state to plot.
+    :param exclude_counties: (optional) Default is None.  A list of counties that should be excluded from the plot.
+    :param top_n_counties: (optional) Defaults to 15.  The top n counties plotted.
+    :param data_type: (optional) Defaults to 'infections'.  Can also be 'deaths'.
+
+    :return: A Bokeh JSON formatted plot that can be handled by JavaScript for HTML presentation.
+    """
     top_n = top_n_counties
 
     if request is not None:

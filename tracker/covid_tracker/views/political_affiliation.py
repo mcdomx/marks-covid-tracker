@@ -19,7 +19,17 @@ def _get_plot_data(_data_type):
 
 
 def plot_affiliation(request, frequency='daily', rolling_window=14, exclude_states=[], data_type='infections'):
-    """Plots single area.  Give a single row."""
+    """
+    Plots data based on 'red' and 'blue' affiliation of states.  Relies on global variable from helpers.py that lists the political affiliation per state.
+
+    :param request: The HTML request that should include values for 'frequency', 'rolling_window', 'data_type' and 'exclude_states'.  See the parameter descriptions below for contraints and defaults for each parameter.
+    :param frequency: (optional) Default is 'daily'.  Plot 'daily' or 'cumulative' values.
+    :param rolling_window: (optional) Default 14.  The number of days to use when drawing the daily average line in the plot.
+    :param exclude_states: (optional) Default is None.  A list of states to exclude from the plotted values.
+    :param data_type: (optional) Default is 'infections.  Plot 'infections' data or 'deaths' data.
+
+    :return: A Bokeh JSON formatted plot that can be handled by JavaScript for HTML presentation.
+    """
 
     if request is not None:
         frequency = request.GET.get('frequency', 'infections').lower()
