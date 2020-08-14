@@ -13,7 +13,8 @@ real time. Lancet Inf Dis. 20(5):533-534. doi:
 
 This page is hosted at:
 
-https://markscovidtracker.azurewebsites.net/ (This is hosted with a free
+https://markscovidtracker.azurewebsites.net/
+(This is hosted with a free
 student account so the initial load time may be slow as the application
 wakes up)
 
