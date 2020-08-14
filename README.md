@@ -14,13 +14,13 @@ Although this site publishes COVID data, it can be used as a template to display
 ## Example Visualizations
 Each chart can be filtered using buttons and scrollbars at the left of each chart.  All charts support rollover information.
 
-![state totals](docs/state_totals.png)
+![state totals](docs_source/source/_static/images/state_totals.png)
 
-![state totals](docs/counties_by_state.png)
+![state totals](docs_source/source/_static/images/counties_by_state.png)
 
-![state totals](docs/political_affiliation.png)
+![state totals](docs_source/source/_static/images/political_affiliation.png)
 
-![state totals](docs/top_states.png)
+![state totals](docs_source/source/_static/images/top_states.png)
 
 ## Application Architecture Summary
 The application uses a Django web server to present various Bokeh visualizations of infection and death rates in the US by state, county and political affiliation.  Javascript is used to put the visualizations on the html page.  Interactions will call the Django server for an updated chart and insert it into the local page.  Data is gathered from the John's Hopkins GIT repo and is refreshed when the page is loaded.
