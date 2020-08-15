@@ -1,0 +1,452 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Code Reference &mdash; Mark&#39;s COVID Tracker 1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Mark’s Covid Tracker" href="readme.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Mark's COVID Tracker
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="readme.html">Mark’s Covid Tracker</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Code Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Mark's COVID Tracker</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Code Reference</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/modules.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="code-reference">
+<h1>Code Reference<a class="headerlink" href="#code-reference" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>These modules include the Python documentation for creating the Bokeh plots used in the application.  Javascript adjustments may be necessary to extend the application.  See the javascript file in the application for guidance.</p>
+</div>
+<span class="target" id="module-management.commands.git_refresh"></span><dl class="py class">
+<dt id="management.commands.git_refresh.Command">
+<em class="property">class </em><code class="sig-prename descclassname">management.commands.git_refresh.</code><code class="sig-name descname">Command</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">stdout</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">stderr</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">no_color</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">force_color</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#management.commands.git_refresh.Command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Trigger a git pull on the COVID dataset. Can be called via <cite>python manage.py git_refresh</cite>. No arguments are supported with this command.</p>
+<dl class="py method">
+<dt id="management.commands.git_refresh.Command.handle">
+<code class="sig-name descname">handle</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">options</span></em><span class="sig-paren">)</span><a class="headerlink" href="#management.commands.git_refresh.Command.handle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called by invoking the command class with <cite>python manage.py git_refresh</cite>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-views.views"></span><dl class="py function">
+<dt id="views.views.get_counties">
+<code class="sig-prename descclassname">views.views.</code><code class="sig-name descname">get_counties</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em><span class="sig-paren">)</span><a class="headerlink" href="#views.views.get_counties" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provides the counties of a state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>request</strong> – The HTML request which is provided by Django when the route is called.  A ‘state’ value is required to identify the state for which counties are returned.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A JSON formatted list of counties in the provided state.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="views.views.index_view">
+<code class="sig-prename descclassname">views.views.</code><code class="sig-name descname">index_view</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em><span class="sig-paren">)</span><a class="headerlink" href="#views.views.index_view" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default Index route which shows the initial page.  A call to this route will attempt to refresh the Git status of the repo.
+:param request:  The HTML request which is provided by Django when the route is called.
+:return:  Renders an HTML home page with ‘states’ and ‘political_affiliation’ values available to Jinja.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="views.views.refresh_git">
+<code class="sig-prename descclassname">views.views.</code><code class="sig-name descname">refresh_git</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em><span class="sig-paren">)</span><a class="headerlink" href="#views.views.refresh_git" title="Permalink to this definition">¶</a></dt>
+<dd><p>Triggers a pull of the Git repository that hold the data used in plots.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>request</strong> – The HTML request which is provided by Django when the route is called.  No values of the request are used in this function.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A Json formatted text response that includes the git activity of the request to pull data.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-views.helpers"></span><dl class="py function">
+<dt id="views.helpers.get_by_day">
+<code class="sig-prename descclassname">views.helpers.</code><code class="sig-name descname">get_by_day</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_df</span></em><span class="sig-paren">)</span><a class="headerlink" href="#views.helpers.get_by_day" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a dataframe that contains cumulative values in date columns in a daily value format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>_df</strong> – A dataframe where the values in each date column are cumulative values.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The supplied dataframe with daily data instead of cumulative data.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="views.helpers.get_column_groups">
+<code class="sig-prename descclassname">views.helpers.</code><code class="sig-name descname">get_column_groups</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">df</span></em><span class="sig-paren">)</span><a class="headerlink" href="#views.helpers.get_column_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a tuple of 3 lists that include the columns of a dataframe split into 3 groups. ‘Attribute Columns’ are non-date columns in a dataframe,  ‘Date Columns Text’ are date columns in text format and ‘Date Columns Date’ are date columns in datetime format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>df</strong> – The dataframe that will be evaluated and for which the column groups are returned.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A tuple of 3 lists: the attribute columns (all columns that are not dates), date columns in text format and the date columns is datetime format.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="views.helpers.get_daily_growth_rate">
+<code class="sig-prename descclassname">views.helpers.</code><code class="sig-name descname">get_daily_growth_rate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_df</span></em><span class="sig-paren">)</span><a class="headerlink" href="#views.helpers.get_daily_growth_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a dataframe that includes values that represent the change rate vs the prior day for all values in date columns.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>_df</strong> – A dataframe of cumulative values in date columns</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A dataframe with the same columns and rows as the original dataframe, except the values are daily change rates rather than cumulative absolute values.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="views.helpers.get_dataframe">
+<code class="sig-prename descclassname">views.helpers.</code><code class="sig-name descname">get_dataframe</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dataset</span></em>, <em class="sig-param"><span class="n">file_path</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'covid_tracker/COVID-19/csse_covid_19_data/csse_covid_19_time_series'</span></em><span class="sig-paren">)</span> &#x2192; dict<a class="headerlink" href="#views.helpers.get_dataframe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Support function that will retrieve a dictionary which includes a dataset in a dataframe format for simplified downstream sorting and filtering.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset</strong> – The string name of the dataset for which data is retrieved (‘recovered_global’, ‘deaths_global’, ‘deaths_US’, ‘confirmed_global’, ‘confirmed_US’)</p></li>
+<li><p><strong>file_path</strong> – (optional) The root filepath where the applicable data is stored.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Returns a dictionary with the dataframe along with applicable parameters useful in handling the dataset. The dictionary container the following key-values {‘df’: &lt;dataframe&gt;, ‘attr_cols’: &lt;list of names of attribute columns&gt;, ‘date_cols_text’: &lt;list of date columns in text format&gt;, ‘date_cols_dates’: &lt;list of date columns in datetime format&gt;}</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="views.helpers.get_df_by_counties">
+<code class="sig-prename descclassname">views.helpers.</code><code class="sig-name descname">get_df_by_counties</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_df</span></em>, <em class="sig-param"><span class="n">state</span></em><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#views.helpers.get_df_by_counties" title="Permalink to this definition">¶</a></dt>
+<dd><p>A support function that will return the entries in a provided dataframe that match the provided state.  The state value provided is not case sensitive.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>_df</strong> – The initial dataframe that will be filtered.</p></li>
+<li><p><strong>state</strong> – The state string name that will be used to filter the dataframe.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A dataframe that includes the entries of the provided dataframe that only include the provided state.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="views.helpers.get_df_by_state">
+<code class="sig-prename descclassname">views.helpers.</code><code class="sig-name descname">get_df_by_state</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_df</span></em><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#views.helpers.get_df_by_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Support function that will return a dataframe grouped by ‘Province State’ where values are summed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>_df</strong> – The dataframe that will be grouped.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The grouped dataframe</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="views.helpers.get_rankings">
+<code class="sig-prename descclassname">views.helpers.</code><code class="sig-name descname">get_rankings</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_df</span></em>, <em class="sig-param"><span class="n">top_n</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#views.helpers.get_rankings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Support function that will return a list of the top n listings in a dataframe based on the most recent date.  Results are listing in descending order.  If no top_n value is provided, all items in the dataframe are sorted.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>_df</strong> – The dataframe that will be filtered and sorted.</p></li>
+<li><p><strong>top_n</strong> – (optional) An integer value that will restrict the returned list to the top n number of listings.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of top_n indexes from a dataframe</p>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-views.plot_state_totals"></span><dl class="py function">
+<dt id="views.plot_state_totals.plot_state_chart">
+<code class="sig-prename descclassname">views.plot_state_totals.</code><code class="sig-name descname">plot_state_chart</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">state</span><span class="o">=</span><span class="default_value">'United States'</span></em>, <em class="sig-param"><span class="n">county</span><span class="o">=</span><span class="default_value">'All'</span></em>, <em class="sig-param"><span class="n">frequency</span><span class="o">=</span><span class="default_value">'daily'</span></em>, <em class="sig-param"><span class="n">data_type</span><span class="o">=</span><span class="default_value">'infections'</span></em>, <em class="sig-param"><span class="n">rolling_window</span><span class="o">=</span><span class="default_value">14</span></em><span class="sig-paren">)</span><a class="headerlink" href="#views.plot_state_totals.plot_state_chart" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots the values for a selected state, county or the entire United States.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> – The HTML request that should include values for ‘state’, ‘county’, ‘frequency’, ‘data_type’ and ‘rolling_window’.  See the parameter descriptions below for contraints and defaults for each parameter.</p></li>
+<li><p><strong>state</strong> – (optional) Default ‘Massachusetts’.  The name of the state to plot.</p></li>
+<li><p><strong>county</strong> – (optional) Default ‘All’.  The county to plot or ‘All’ counties of a state of value is ‘All’.</p></li>
+<li><p><strong>frequency</strong> – (optional) Default ‘daily’.  Whether to plot daily or cumulative values.</p></li>
+<li><p><strong>data_type</strong> – (optional) Default ‘infections’.  Plot ‘infections’ data or ‘deaths’ data.</p></li>
+<li><p><strong>rolling_window</strong> – (optional) Default 14.  The number of days to use when drawing the daily average line in the plot.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A Bokeh JSON formatted plot that can be handled by JavaScript for HTML presentation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-views.plot_state_by_county"></span><dl class="py function">
+<dt id="views.plot_state_by_county.plot_state_by_county_chart">
+<code class="sig-prename descclassname">views.plot_state_by_county.</code><code class="sig-name descname">plot_state_by_county_chart</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">state</span><span class="o">=</span><span class="default_value">'Massachusetts'</span></em>, <em class="sig-param"><span class="n">exclude_counties</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">top_n_counties</span><span class="o">=</span><span class="default_value">15</span></em>, <em class="sig-param"><span class="n">data_type</span><span class="o">=</span><span class="default_value">'infections'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#views.plot_state_by_county.plot_state_by_county_chart" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots a line chart of values by date for the counties in a provided state.  Not all counties are shown to avoid visual confusion.  The top_n counties defaults to 15 but can be set.  Infections are plotted by default, but ‘deaths’ can be plotted as well.  Counties can be excluded from the plot.
+The function can be called with parameters in a request object or with specific parameters.  If a request object is supplied, other variables supplied are ignored.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> – The HTML request that should include values for ‘state’, ‘exclude_counties’, ‘top_n_counties’ and ‘data_type’.  See the parameter descriptions below for contraints and defaults for each parameter.</p></li>
+<li><p><strong>state</strong> – (optional) Default ‘Massachusetts’.  The name of the state to plot.</p></li>
+<li><p><strong>exclude_counties</strong> – (optional) Default is None.  A list of counties that should be excluded from the plot.</p></li>
+<li><p><strong>top_n_counties</strong> – (optional) Defaults to 15.  The top n counties plotted.</p></li>
+<li><p><strong>data_type</strong> – (optional) Defaults to ‘infections’.  Can also be ‘deaths’.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A Bokeh JSON formatted plot that can be handled by JavaScript for HTML presentation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-views.political_affiliation"></span><dl class="py function">
+<dt id="views.political_affiliation.plot_affiliation">
+<code class="sig-prename descclassname">views.political_affiliation.</code><code class="sig-name descname">plot_affiliation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">frequency</span><span class="o">=</span><span class="default_value">'daily'</span></em>, <em class="sig-param"><span class="n">rolling_window</span><span class="o">=</span><span class="default_value">14</span></em>, <em class="sig-param"><span class="n">exclude_states</span><span class="o">=</span><span class="default_value">[]</span></em>, <em class="sig-param"><span class="n">data_type</span><span class="o">=</span><span class="default_value">'infections'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#views.political_affiliation.plot_affiliation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots data based on ‘red’ and ‘blue’ affiliation of states.  Relies on global variable from helpers.py that lists the political affiliation per state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> – The HTML request that should include values for ‘frequency’, ‘rolling_window’, ‘data_type’ and ‘exclude_states’.  See the parameter descriptions below for contraints and defaults for each parameter.</p></li>
+<li><p><strong>frequency</strong> – (optional) Default is ‘daily’.  Plot ‘daily’ or ‘cumulative’ values.</p></li>
+<li><p><strong>rolling_window</strong> – (optional) Default 14.  The number of days to use when drawing the daily average line in the plot.</p></li>
+<li><p><strong>exclude_states</strong> – (optional) Default is None.  A list of states to exclude from the plotted values.</p></li>
+<li><p><strong>data_type</strong> – (optional) Default is ‘infections.  Plot ‘infections’ data or ‘deaths’ data.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A Bokeh JSON formatted plot that can be handled by JavaScript for HTML presentation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-views.plot_top_states"></span><dl class="py function">
+<dt id="views.plot_top_states.plot_top_states">
+<code class="sig-prename descclassname">views.plot_top_states.</code><code class="sig-name descname">plot_top_states</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">states</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">top_n_states</span><span class="o">=</span><span class="default_value">15</span></em>, <em class="sig-param"><span class="n">data_type</span><span class="o">=</span><span class="default_value">'infections'</span></em>, <em class="sig-param"><span class="n">exclude_states</span><span class="p">:</span> <span class="n">list</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#views.plot_top_states.plot_top_states" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot a line chart of values for the top n states in the US.  Can plot based on infections or deaths.  A list of states canbe provided which are exluded from the list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> – The HTML request that should include values for ‘states’, ‘top_n_states’, ‘data_type’ and ‘exclude_states’.  See the parameter descriptions below for contraints and defaults for each parameter.</p></li>
+<li><p><strong>states</strong> – (optional)  Default is None.  A specific list of states that should be included in the plot.  When None is the value, the top_n states are plotted.</p></li>
+<li><p><strong>top_n_states</strong> – (optional) Default 15.  The top n number of states to plot.</p></li>
+<li><p><strong>data_type</strong> – (optional) Default is ‘infections’.  Plot ‘infections’ or ‘deaths’.</p></li>
+<li><p><strong>exclude_states</strong> – (optional) Default is None.  A list of the states to exclude from the plot.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A Bokeh JSON formatted plot that can be handled by JavaScript for HTML presentation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="readme.html" class="btn btn-neutral float-left" title="Mark’s Covid Tracker" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Mark McDonald
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

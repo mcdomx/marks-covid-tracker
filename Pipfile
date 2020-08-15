@@ -21,6 +21,7 @@ django = "*"
 gitpython = "*"
 whitenoise = "*"
 sphinx = "*"
+sphinx-rtd-theme = "*"
 
 [requires]
 python_version = "3.7"

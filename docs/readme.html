@@ -1,0 +1,433 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Mark’s Covid Tracker &mdash; Mark&#39;s COVID Tracker 1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Code Reference" href="modules.html" />
+    <link rel="prev" title="Mark’s COVID Tracker Documentation" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Mark's COVID Tracker
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Mark’s Covid Tracker</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example-visualizations">Example Visualizations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#application-architecture-summary">Application Architecture Summary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#quick-start">Quick Start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#local-environment-variables">Local Environment Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#alternative-execution-methods">Alternative Execution Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#run-from-django">Run from Django</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#django-with-a-web-server-gateway">Django with a Web Server Gateway</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#docker">Docker</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#extending-the-application">Extending the Application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#serving-static-files-in-production">Serving Static Files in Production</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#publishing-to-azure">Publishing to Azure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#potential-improvements">Potential Improvements</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Code Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Mark's COVID Tracker</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Mark’s Covid Tracker</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/readme.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="marks-covid-tracker">
+<span id="readme"></span><h1>Mark’s Covid Tracker<a class="headerlink" href="#marks-covid-tracker" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>Django-based Covid Tracker presented with Bokeh Visualizations</p>
+<p>This application is based on publicly available data from the Johns
+Hopkins University Center for Systems Science in Engineering. “Dong E,
+Du H, Gardner L. An interactive web-based dashboard to track COVID-19 in
+real time. Lancet Inf Dis. 20(5):533-534. doi:
+10.1016/S1473-3099(20)30120-1”</p>
+<p>This page is hosted at:</p>
+<p><a class="reference external" href="https://markscovidtracker.azurewebsites.net/">https://markscovidtracker.azurewebsites.net/</a>
+(This is hosted with a free
+student account so the initial load time may be slow as the application
+wakes up)</p>
+<p>Although this site publishes COVID data, it can be used as a template to
+display any kind of data. The creation of charts has been abstracted so
+that button filters are created based on a type of data. Work still must
+be done to import new data and display new charts, but the Django
+framework for delivery can easily be reused.</p>
+</div>
+<div class="section" id="example-visualizations">
+<h2>Example Visualizations<a class="headerlink" href="#example-visualizations" title="Permalink to this headline">¶</a></h2>
+<p>Each chart can be filtered using buttons and scrollbars at the left of
+each chart. All charts support rollover information.</p>
+<div class="figure align-default" id="id1">
+<img alt="state totals" src="_static/images/state_totals.png" />
+<p class="caption"><span class="caption-text">state totals</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id2">
+<img alt="state totals" src="_static/images/counties_by_state.png" />
+<p class="caption"><span class="caption-text">state totals</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id3">
+<img alt="state totals" src="_static/images/political_affiliation.png" />
+<p class="caption"><span class="caption-text">state totals</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id4">
+<img alt="state totals" src="_static/images/top_states.png" />
+<p class="caption"><span class="caption-text">state totals</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="application-architecture-summary">
+<h2>Application Architecture Summary<a class="headerlink" href="#application-architecture-summary" title="Permalink to this headline">¶</a></h2>
+<p>The application uses a Django web server to present various Bokeh
+visualizations of infection and death rates in the US by state, county
+and political affiliation. Javascript is used to put the visualizations
+on the html page. Interactions will call the Django server for an
+updated chart and insert it into the local page. Data is gathered from
+the John’s Hopkins GIT repo and is refreshed when the page is loaded.</p>
+</div>
+<div class="section" id="quick-start">
+<h2>Quick Start<a class="headerlink" href="#quick-start" title="Permalink to this headline">¶</a></h2>
+<p>To use the tracker locally:</p>
+<ol class="arabic simple">
+<li><p>Clone this repo</p></li>
+<li><p>Install pipenv</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>`pip install pipenv`
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Get a census application key
+(<a class="reference external" href="https://api.census.gov/data/key_signup.html">https://api.census.gov/data/key_signup.html</a>)</p></li>
+<li><p>Create a <code class="docutils literal notranslate"><span class="pre">.env</span></code> file in the root and add variables as described in
+the “Local Environment Variables” section below.</p></li>
+<li><p>Launch the pipenv virtual environment</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>`pipenv shell`
+</pre></div>
+</div>
+<ol class="arabic simple" start="6">
+<li><p>If running a production environment (<code class="docutils literal notranslate"><span class="pre">WORKSPACE=PROD</span></code>), update the
+static files using</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>`python manage.py collectstatic`
+</pre></div>
+</div>
+<ol class="arabic simple" start="7">
+<li><p>Start the Django server from the <code class="docutils literal notranslate"><span class="pre">/tracker/tracker</span></code> directory</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>`python manage.py runserver`
+</pre></div>
+</div>
+</div>
+<div class="section" id="local-environment-variables">
+<h2>Local Environment Variables<a class="headerlink" href="#local-environment-variables" title="Permalink to this headline">¶</a></h2>
+<p>Before the application can be executed locally, 3 local environment
+variables must be created.</p>
+<p>1. DJANGO_SECRET_KEY: This can be anything
+you choose.</p>
+<p>2. CENSUS_API_KEY: Get a key at
+<a class="reference external" href="https://api.census.gov/data/key_signup.html">https://api.census.gov/data/key_signup.html</a> 3. WORKSPACE: <code class="docutils literal notranslate"><span class="pre">PROD</span></code> or
+<code class="docutils literal notranslate"><span class="pre">DEV</span></code>. <code class="docutils literal notranslate"><span class="pre">PROD</span></code> will disable Django debugging and force the Docker
+version of the application to execute within a WSGI wrapper.</p>
+<p>Each of these variables must be created in a <code class="docutils literal notranslate"><span class="pre">.env</span></code> file saved in the
+root folder.</p>
+</div>
+<div class="section" id="alternative-execution-methods">
+<h2>Alternative Execution Methods<a class="headerlink" href="#alternative-execution-methods" title="Permalink to this headline">¶</a></h2>
+<p>Once the local environment variables have been saved in a local <code class="docutils literal notranslate"><span class="pre">.env</span></code>
+file, the application can be run natively from Django or can be packaged
+as a Docker container. Alternatively, the application can be run using a
+WSGI gunicorn wrapper.</p>
+<div class="section" id="run-from-django">
+<h3>Run from Django<a class="headerlink" href="#run-from-django" title="Permalink to this headline">¶</a></h3>
+<p>To run from Django, navigate to the <code class="docutils literal notranslate"><span class="pre">tracker/tracker</span></code> directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">manage</span><span class="o">.</span><span class="n">py</span> <span class="n">runserver</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="django-with-a-web-server-gateway">
+<h3>Django with a Web Server Gateway<a class="headerlink" href="#django-with-a-web-server-gateway" title="Permalink to this headline">¶</a></h3>
+<p>Alternatively, the application can be run using gunicorn WSGI as well:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gunicorn</span> <span class="o">--</span><span class="n">bind</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span><span class="p">:</span><span class="mi">8000</span> <span class="o">--</span><span class="n">workers</span> <span class="mi">4</span> <span class="o">--</span><span class="n">timeout</span> <span class="mi">600</span> <span class="n">tracker</span><span class="o">.</span><span class="n">wsgi</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="docker">
+<h3>Docker<a class="headerlink" href="#docker" title="Permalink to this headline">¶</a></h3>
+<p>To use the application from a Docker container, an image must first be
+created. From the root:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">build</span> <span class="o">.</span> <span class="o">-</span><span class="n">t</span> <span class="n">covid_tracker</span>
+</pre></div>
+</div>
+<p>After the image is created, a container can be created and run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">run</span> <span class="o">--</span><span class="n">rm</span> <span class="o">--</span><span class="n">env</span><span class="o">-</span><span class="n">file</span> <span class="o">./.</span><span class="n">env</span> <span class="o">-</span><span class="n">it</span> <span class="o">-</span><span class="n">p</span> <span class="mi">8080</span><span class="p">:</span><span class="mi">8000</span> <span class="n">covid_tracker</span>
+</pre></div>
+</div>
+<p>The docker container can also be built and executed using
+docker-compose:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span><span class="o">-</span><span class="n">compose</span> <span class="n">build</span>
+<span class="n">docker</span><span class="o">-</span><span class="n">compose</span> <span class="n">up</span>
+</pre></div>
+</div>
+<p>The site can be accessed locally at <a class="reference external" href="http://127.0.0.1:8000">http://127.0.0.1:8000</a></p>
+</div>
+</div>
+<div class="section" id="extending-the-application">
+<h2>Extending the Application<a class="headerlink" href="#extending-the-application" title="Permalink to this headline">¶</a></h2>
+<p>The application has been designed to be extensible and accommodate new
+visualizations. To do this, you will need familiarity with Python, Bokeh
+and Javascript.</p>
+<p>Following the repo examples as a starting point is recommended.</p>
+<p>To add new visualization:</p>
+<ol class="arabic simple">
+<li><p>Create bokeh visualization with a function accepts a request which has named variables their default values for the chart.</p></li>
+</ol>
+<p>The code should be placed in the ‘views’ directory.</p>
+<p>The function which creates the bokeh chart must include a request variable as the first argument.</p>
+<p>ex: <cite>plot_mychart(request, color=’red’, animal=’frog’)</cite></p>
+<p>The plotting function must return a <cite>django.JsonResponse(bokeh.json_item(p))</cite>, where <cite>p</cite> is the bokeh plot.</p>
+<p>The function can include variables in addition to the ‘request’, but the http nature of the application requires that variables are extracted from the ‘request’ object.  See the other visualizations as an example.</p>
+<ol class="arabic simple" start="2">
+<li><p>Create javascript function to add control elements. See the
+<code class="docutils literal notranslate"><span class="pre">draw_covid_tracker()</span></code> function in the <code class="docutils literal notranslate"><span class="pre">covid_js.js</span></code> script for
+an example of how to place the bokeh chart into HTML.</p></li>
+<li><p>Update the <code class="docutils literal notranslate"><span class="pre">tracker/tracker/covid_tracker/urls.py</span></code> file to include
+the new path. The path must match the path name created when updating
+the <code class="docutils literal notranslate"><span class="pre">draw_covid_tracker()</span></code> function.</p></li>
+</ol>
+</div>
+<div class="section" id="serving-static-files-in-production">
+<h2>Serving Static Files in Production<a class="headerlink" href="#serving-static-files-in-production" title="Permalink to this headline">¶</a></h2>
+<p>For production, static files are centrally collected using
+<code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">manage.py</span> <span class="pre">collectstatic</span></code>. This will store the static files
+into a directory identified in settings as ‘STATIC_ROOT’. We then use
+Whitenoise to serve the static files in production.</p>
+<p>This configuration requires several new variables in the settings.py
+confuration under the static files section. This is handled in the
+docker-entrypoint.sh script when publishing using Docker but will need
+to be manually executed if running a production instance from Django.</p>
+<p>Important: changes to static files under the app directory will require
+you to run <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">manage.py</span> <span class="pre">collectstatic</span></code> to update the centrally
+managed static files.</p>
+</div>
+<div class="section" id="publishing-to-azure">
+<h2>Publishing to Azure<a class="headerlink" href="#publishing-to-azure" title="Permalink to this headline">¶</a></h2>
+<p>Before publishing to Azure, you will need an Azure account and need to
+login locally.</p>
+<p>The following command will build an image and publish it to your Azure
+registry:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">az</span> <span class="n">acr</span> <span class="n">build</span> <span class="o">--</span><span class="n">image</span> <span class="n">covid_tracker</span> <span class="o">--</span><span class="n">registry</span> <span class="p">{</span><span class="n">your_registry_name</span><span class="p">}</span> <span class="o">--</span><span class="n">file</span> <span class="n">Dockerfile</span> <span class="o">.</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="potential-improvements">
+<h2>Potential Improvements<a class="headerlink" href="#potential-improvements" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Cache data on user-side for speed improvements</p>
+<ul>
+<li><p>This may require building the of bokeh plots in JavaScript</p></li>
+<li><p>Otherwise, the entire plot returned from Django can be cached</p></li>
+</ul>
+</li>
+<li><p>Put data into Postgres database</p>
+<ul>
+<li><p>Use separate Docker container that will auto-refresh as needed</p></li>
+</ul>
+</li>
+<li><p>Warm-up takes long. Create a static site that will provide feedback
+to the user that application is loading.</p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="modules.html" class="btn btn-neutral float-right" title="Code Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="Mark’s COVID Tracker Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Mark McDonald
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
