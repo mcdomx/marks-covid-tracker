@@ -36,7 +36,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Mark’s Covid Tracker" href="readme.html" /> 
+    <link rel="prev" title="Django Management Commands" href="commands.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -84,6 +84,7 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="readme.html">Mark’s Covid Tracker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands.html">Django Management Commands</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Code Reference</a></li>
 </ul>
 
@@ -156,18 +157,6 @@
 <p class="admonition-title">Note</p>
 <p>These modules include the Python documentation for creating the Bokeh plots used in the application.  Javascript adjustments may be necessary to extend the application.  See the javascript file in the application for guidance.</p>
 </div>
-<span class="target" id="module-management.commands.git_refresh"></span><dl class="py class">
-<dt id="management.commands.git_refresh.Command">
-<em class="property">class </em><code class="sig-prename descclassname">management.commands.git_refresh.</code><code class="sig-name descname">Command</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">stdout</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">stderr</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">no_color</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">force_color</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#management.commands.git_refresh.Command" title="Permalink to this definition">¶</a></dt>
-<dd><p>Trigger a git pull on the COVID dataset. Can be called via <cite>python manage.py git_refresh</cite>. No arguments are supported with this command.</p>
-<dl class="py method">
-<dt id="management.commands.git_refresh.Command.handle">
-<code class="sig-name descname">handle</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">options</span></em><span class="sig-paren">)</span><a class="headerlink" href="#management.commands.git_refresh.Command.handle" title="Permalink to this definition">¶</a></dt>
-<dd><p>Called by invoking the command class with <cite>python manage.py git_refresh</cite>.</p>
-</dd></dl>
-
-</dd></dl>
-
 <span class="target" id="module-views.views"></span><dl class="py function">
 <dt id="views.views.get_counties">
 <code class="sig-prename descclassname">views.views.</code><code class="sig-name descname">get_counties</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em><span class="sig-paren">)</span><a class="headerlink" href="#views.views.get_counties" title="Permalink to this definition">¶</a></dt>
@@ -200,113 +189,6 @@
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A Json formatted text response that includes the git activity of the request to pull data.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<span class="target" id="module-views.helpers"></span><dl class="py function">
-<dt id="views.helpers.get_by_day">
-<code class="sig-prename descclassname">views.helpers.</code><code class="sig-name descname">get_by_day</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_df</span></em><span class="sig-paren">)</span><a class="headerlink" href="#views.helpers.get_by_day" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a dataframe that contains cumulative values in date columns in a daily value format.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>_df</strong> – A dataframe where the values in each date column are cumulative values.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The supplied dataframe with daily data instead of cumulative data.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="views.helpers.get_column_groups">
-<code class="sig-prename descclassname">views.helpers.</code><code class="sig-name descname">get_column_groups</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">df</span></em><span class="sig-paren">)</span><a class="headerlink" href="#views.helpers.get_column_groups" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a tuple of 3 lists that include the columns of a dataframe split into 3 groups. ‘Attribute Columns’ are non-date columns in a dataframe,  ‘Date Columns Text’ are date columns in text format and ‘Date Columns Date’ are date columns in datetime format.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>df</strong> – The dataframe that will be evaluated and for which the column groups are returned.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A tuple of 3 lists: the attribute columns (all columns that are not dates), date columns in text format and the date columns is datetime format.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="views.helpers.get_daily_growth_rate">
-<code class="sig-prename descclassname">views.helpers.</code><code class="sig-name descname">get_daily_growth_rate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_df</span></em><span class="sig-paren">)</span><a class="headerlink" href="#views.helpers.get_daily_growth_rate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a dataframe that includes values that represent the change rate vs the prior day for all values in date columns.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>_df</strong> – A dataframe of cumulative values in date columns</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A dataframe with the same columns and rows as the original dataframe, except the values are daily change rates rather than cumulative absolute values.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="views.helpers.get_dataframe">
-<code class="sig-prename descclassname">views.helpers.</code><code class="sig-name descname">get_dataframe</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dataset</span></em>, <em class="sig-param"><span class="n">file_path</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'covid_tracker/COVID-19/csse_covid_19_data/csse_covid_19_time_series'</span></em><span class="sig-paren">)</span> &#x2192; dict<a class="headerlink" href="#views.helpers.get_dataframe" title="Permalink to this definition">¶</a></dt>
-<dd><p>Support function that will retrieve a dictionary which includes a dataset in a dataframe format for simplified downstream sorting and filtering.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>dataset</strong> – The string name of the dataset for which data is retrieved (‘recovered_global’, ‘deaths_global’, ‘deaths_US’, ‘confirmed_global’, ‘confirmed_US’)</p></li>
-<li><p><strong>file_path</strong> – (optional) The root filepath where the applicable data is stored.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Returns a dictionary with the dataframe along with applicable parameters useful in handling the dataset. The dictionary container the following key-values {‘df’: &lt;dataframe&gt;, ‘attr_cols’: &lt;list of names of attribute columns&gt;, ‘date_cols_text’: &lt;list of date columns in text format&gt;, ‘date_cols_dates’: &lt;list of date columns in datetime format&gt;}</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="views.helpers.get_df_by_counties">
-<code class="sig-prename descclassname">views.helpers.</code><code class="sig-name descname">get_df_by_counties</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_df</span></em>, <em class="sig-param"><span class="n">state</span></em><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#views.helpers.get_df_by_counties" title="Permalink to this definition">¶</a></dt>
-<dd><p>A support function that will return the entries in a provided dataframe that match the provided state.  The state value provided is not case sensitive.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>_df</strong> – The initial dataframe that will be filtered.</p></li>
-<li><p><strong>state</strong> – The state string name that will be used to filter the dataframe.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A dataframe that includes the entries of the provided dataframe that only include the provided state.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="views.helpers.get_df_by_state">
-<code class="sig-prename descclassname">views.helpers.</code><code class="sig-name descname">get_df_by_state</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_df</span></em><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#views.helpers.get_df_by_state" title="Permalink to this definition">¶</a></dt>
-<dd><p>Support function that will return a dataframe grouped by ‘Province State’ where values are summed.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>_df</strong> – The dataframe that will be grouped.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The grouped dataframe</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="views.helpers.get_rankings">
-<code class="sig-prename descclassname">views.helpers.</code><code class="sig-name descname">get_rankings</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_df</span></em>, <em class="sig-param"><span class="n">top_n</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#views.helpers.get_rankings" title="Permalink to this definition">¶</a></dt>
-<dd><p>Support function that will return a list of the top n listings in a dataframe based on the most recent date.  Results are listing in descending order.  If no top_n value is provided, all items in the dataframe are sorted.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>_df</strong> – The dataframe that will be filtered and sorted.</p></li>
-<li><p><strong>top_n</strong> – (optional) An integer value that will restrict the returned list to the top n number of listings.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A list of top_n indexes from a dataframe</p>
 </dd>
 </dl>
 </dd></dl>
@@ -404,7 +286,7 @@ The function can be called with parameters in a request object or with specific 
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
       
-        <a href="readme.html" class="btn btn-neutral float-left" title="Mark’s Covid Tracker" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="commands.html" class="btn btn-neutral float-left" title="Django Management Commands" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

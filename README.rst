@@ -71,7 +71,7 @@ To use the tracker locally:
 
 ::
 
-   `pip install pipenv`
+   pip install pipenv
 
 3. Get a census application key
    (https://api.census.gov/data/key_signup.html)
@@ -81,20 +81,20 @@ To use the tracker locally:
 
 ::
 
-   `pipenv shell`
+   pipenv shell
 
 6. If running a production environment (``WORKSPACE=PROD``), update the
    static files using
 
 ::
 
-   `python manage.py collectstatic`
+   python manage.py collectstatic
 
 7. Start the Django server from the ``/tracker/tracker`` directory
 
 ::
 
-   `python manage.py runserver`
+   python manage.py runserver
 
 Local Environment Variables
 ---------------------------

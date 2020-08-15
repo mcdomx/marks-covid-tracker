@@ -36,7 +36,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Code Reference" href="modules.html" />
+    <link rel="next" title="Django Management Commands" href="commands.html" />
     <link rel="prev" title="Mark’s COVID Tracker Documentation" href="index.html" /> 
 </head>
 
@@ -102,6 +102,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#potential-improvements">Potential Improvements</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="commands.html">Django Management Commands</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">Code Reference</a></li>
 </ul>
 
@@ -226,7 +227,7 @@ the John’s Hopkins GIT repo and is refreshed when the page is loaded.</p>
 <li><p>Clone this repo</p></li>
 <li><p>Install pipenv</p></li>
 </ol>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>`pip install pipenv`
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">pipenv</span>
 </pre></div>
 </div>
 <ol class="arabic simple" start="3">
@@ -236,20 +237,20 @@ the John’s Hopkins GIT repo and is refreshed when the page is loaded.</p>
 the “Local Environment Variables” section below.</p></li>
 <li><p>Launch the pipenv virtual environment</p></li>
 </ol>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>`pipenv shell`
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pipenv</span> <span class="n">shell</span>
 </pre></div>
 </div>
 <ol class="arabic simple" start="6">
 <li><p>If running a production environment (<code class="docutils literal notranslate"><span class="pre">WORKSPACE=PROD</span></code>), update the
 static files using</p></li>
 </ol>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>`python manage.py collectstatic`
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">manage</span><span class="o">.</span><span class="n">py</span> <span class="n">collectstatic</span>
 </pre></div>
 </div>
 <ol class="arabic simple" start="7">
 <li><p>Start the Django server from the <code class="docutils literal notranslate"><span class="pre">/tracker/tracker</span></code> directory</p></li>
 </ol>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>`python manage.py runserver`
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">manage</span><span class="o">.</span><span class="n">py</span> <span class="n">runserver</span>
 </pre></div>
 </div>
 </div>
@@ -382,7 +383,7 @@ to the user that application is loading.</p></li>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="modules.html" class="btn btn-neutral float-right" title="Code Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="commands.html" class="btn btn-neutral float-right" title="Django Management Commands" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="index.html" class="btn btn-neutral float-left" title="Mark’s COVID Tracker Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
