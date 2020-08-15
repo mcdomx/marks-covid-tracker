@@ -11,6 +11,7 @@ Mark's COVID Tracker Documentation
    :caption: Contents:
 
    readme
+   commands
    modules
 
 
