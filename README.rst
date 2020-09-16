@@ -11,13 +11,6 @@ Du H, Gardner L. An interactive web-based dashboard to track COVID-19 in
 real time. Lancet Inf Dis. 20(5):533-534. doi:
 10.1016/S1473-3099(20)30120-1”
 
-This page is hosted at:
-
-https://markscovidtracker.azurewebsites.net/
-(This is hosted with a free
-student account so the initial load time may be slow as the application
-wakes up)
-
 Although this site publishes COVID data, it can be used as a template to
 display any kind of data. The creation of charts has been abstracted so
 that button filters are created based on a type of data. Work still must
