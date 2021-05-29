@@ -99,7 +99,9 @@ variables must be created.
 you choose.
 
 2. CENSUS_API_KEY: Get a key at
-https://api.census.gov/data/key_signup.html 3. WORKSPACE: ``PROD`` or
+https://api.census.gov/data/key_signup.html
+
+3. WORKSPACE: ``PROD`` or
 ``DEV``. ``PROD`` will disable Django debugging and force the Docker
 version of the application to execute within a WSGI wrapper.
 
@@ -156,7 +158,7 @@ docker-compose:
    docker-compose build
    docker-compose up
 
-The site can be accessed locally at http://127.0.0.1:8000
+The site can be accessed locally at http://127.0.0.1:9000
 
 Extending the Application
 -------------------------

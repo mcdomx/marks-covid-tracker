@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'whitenoise.runserver_nostatic',  # for static file serving in production
     'django.contrib.staticfiles',
-    'covid_tracker.apps.CovidTrackerConfig'
+    'covid_tracker.apps.CovidTrackerConfig',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [

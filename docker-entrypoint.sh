@@ -6,9 +6,9 @@ echo $WORKSPACE
 python manage.py collectstatic --noinput --clear --link
 
 if [ -z "$WORKSPACE" ] || [ "$WORKSPACE" != "PROD" ]
-then
-      python manage.py runserver 0.0.0.0:8000
-else
-      gunicorn --bind 0.0.0.0:8000 --workers 4 --timeout 600 tracker.wsgi
+  then
+    gunicorn --bind 0.0.0.0:8000 --workers 4 --timeout 600 tracker.wsgi
+  else
+    python manage.py runserver 0.0.0.0:8000
 fi
 

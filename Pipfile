@@ -6,10 +6,9 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-pandas = "*"
-bokeh = "*"
+proj="6.2.0"
+bokeh = "2.3.1" # must match version in home.html <script src=>
 numpy = "*"
-geopandas = "*"
 shapely = "*"
 matplotlib = "*"
 descartes = "*"
@@ -20,8 +19,12 @@ gunicorn = "*"
 django = "*"
 gitpython = "*"
 whitenoise = "*"
-sphinx = "*"
-sphinx-rtd-theme = "*"
+# sphinx = "*"
+# sphinx-rtd-theme = "*"
+# pandas = "*"
+# geopandas = "*"
+# notebook = "*"
+django-extensions = "*"
 
 [requires]
 python_version = "3.7"

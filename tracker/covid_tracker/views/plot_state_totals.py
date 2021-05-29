@@ -1,7 +1,7 @@
 
 from bokeh.embed import json_item
 from bokeh.plotting import figure
-from bokeh.models import FactorRange, ColumnDataSource, HoverTool, NumeralTickFormatter
+from bokeh.models import FactorRange, ColumnDataSource, HoverTool, NumeralTickFormatter, CustomLabelingPolicy
 from bokeh.models.callbacks import CustomJS
 
 from django.http import JsonResponse
@@ -37,8 +37,9 @@ def _get_plot_data(data_type, frequency, state, county):
                 date_cols_text].values
 
     # setup x axis groupings
-    factors = [(c.month_name(), str(c.day)) for c in date_cols_dates]
+    factors = [(str(c.year), c.month_name(), str(c.day)) for c in date_cols_dates]
 
+    # return plot_data[-365:], factors[-365:]
     return plot_data, factors
 
 
@@ -81,7 +82,7 @@ def plot_state_chart(request, state="United States", county='All', frequency='da
     # setup figure
     p = figure(x_range=FactorRange(*factors), sizing_mode='stretch_both',  # plot_height=500, plot_width=900,
                y_axis_type='linear', y_axis_label=data_type, output_backend="webgl",
-               toolbar_location=None, tools=[hover],
+               toolbar_location=None, tools=[hover], id="state_totals",
                title=f"{state} New {data_type.capitalize()}{' by Day' if frequency == 'daily' else ''}")
     p.title.text_font_size = '12pt'
     p.yaxis.formatter = NumeralTickFormatter(format="0,000")
@@ -97,7 +98,10 @@ def plot_state_chart(request, state="United States", county='All', frequency='da
 
     p.xaxis.major_label_orientation = 1
     p.xaxis.group_text_font_size = "10pt"  # months size
-    p.xaxis.major_label_text_font_size = "6pt"  # date size
+    p.xaxis.major_label_text_font_size = "3pt"  # date size
+    p.xaxis.major_tick_line_color = None
+
+    # p.xaxis.visible = False  # hide the dates
     p.yaxis.major_label_orientation = 1
     p.xgrid.grid_line_color = None
 

@@ -383,7 +383,7 @@ function make_chart(default_filters, chart_name, chart_title, chart_update_url){
 
   // add a space for the navbar
   var section_spacer = document.createElement('div');
-  section_spacer.style.height = '60px';
+//  section_spacer.style.height = '60px';
   section_div.appendChild(section_spacer);
 
   // add chart to the navbar
@@ -406,7 +406,7 @@ function make_chart(default_filters, chart_name, chart_title, chart_update_url){
 
   var content_div = document.createElement('div');
   content_div.className = 'row';
-  content_div.style.height = "500px";
+//  content_div.style.height = "500px";
   content_div.style.width = "900px";
   section_div.appendChild(content_div);
 
@@ -450,6 +450,9 @@ function make_chart(default_filters, chart_name, chart_title, chart_update_url){
 
       make_county_dropdown(data_group_name, county_div.id, chart_div.id, chart_update_url, 'County: ', chart_name);
     }
+
+
+
   }
 
   // FUTURE make an exclude county section is 'exclude_counties' exists - tie it to state

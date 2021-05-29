@@ -4,12 +4,12 @@ services:
   covid_tracker:
     image: covid_tracker
     build: .
-    restart: always
+    restart: "no"
     environment:
-#      - WORKSPACE=PROD  # Use PROD for publishing over internet
+#      - WORKSPACE=PROD  # Use PROD for publishing over internet - uses gunicorn
       - WORKSPACE=DEV
       - COMPOSE_PROJECT_NAME=covid_tracker
     env_file:
       - ./.env
     ports:
-      - 8000:8000
+      - 9000:8000
