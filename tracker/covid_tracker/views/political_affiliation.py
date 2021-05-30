@@ -62,7 +62,7 @@ def plot_affiliation(request, frequency='daily', rolling_window=14, exclude_stat
     plot_data_purple = all_data[all_data.political_affiliation == 'purple'].sum()[date_cols_text].values
 
     # setup x axis groupings
-    factors = [(c.month_name(), str(c.day)) for c in date_cols_dates]
+    factors = [(str(c.year), c.month_name(), str(c.day)) for c in date_cols_dates]
 
     # setup Hover tool
     hover = HoverTool()
@@ -106,7 +106,8 @@ def plot_affiliation(request, frequency='daily', rolling_window=14, exclude_stat
 
     p.xaxis.major_label_orientation = 1
     p.xaxis.group_text_font_size = "10pt"  # months size
-    p.xaxis.major_label_text_font_size = "6pt"  # date size
+    p.xaxis.major_label_text_font_size = "3pt"  # date size
+    p.xaxis.major_tick_line_color = None
     p.yaxis.major_label_orientation = 1
     p.xgrid.grid_line_color = None
 

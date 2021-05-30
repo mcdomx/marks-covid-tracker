@@ -68,7 +68,7 @@ def plot_top_states(request, states=None, top_n_states=15, data_type='infections
 
     states = df.Province_State.unique()
 
-    factors = [(c.month_name(), str(c.day)) for c in date_cols_dates]
+    factors = [(str(c.year), c.month_name(), str(c.day)) for c in date_cols_dates]
 
     hover = HoverTool()
     hover.tooltips = [
@@ -105,7 +105,8 @@ def plot_top_states(request, states=None, top_n_states=15, data_type='infections
         p.y_range.start = 0
         p.xaxis.major_label_orientation = 1
         p.xaxis.group_text_font_size = "10pt"  # months size
-        p.xaxis.major_label_text_font_size = "6pt"  # date size
+        p.xaxis.major_label_text_font_size = "3pt"  # date size
+        p.xaxis.major_tick_line_color = None
         p.yaxis.major_label_orientation = 1
         p.xgrid.grid_line_color = None
 
