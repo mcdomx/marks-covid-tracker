@@ -49,9 +49,9 @@ def plot_top_states(request, states=None, top_n_states=15, data_type='infections
         top_n = int(request.GET.get('top_n_states', 15))
         exclude_states = request.GET.get('exclude_states', False)
 
-    if states is 'null':
+    if states == 'null':
         states = None
-    if exclude_states is 'null':
+    if exclude_states == 'null':
         exclude_states = False
 
     # make sure the top_n is between 3 and 20
