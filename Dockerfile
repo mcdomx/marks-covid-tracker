@@ -44,6 +44,10 @@ WORKDIR /app
 COPY tracker /app/
 COPY docker-entrypoint.sh /app/
 
+WORKDIR /app/tracker/covid_tracker
+RUN git clone https://github.com/CSSEGISandData/COVID-19.git
+WORKDIR /app
+
 EXPOSE 8000
 
 ENTRYPOINT ["/app/docker-entrypoint.sh"]
