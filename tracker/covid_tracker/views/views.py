@@ -23,7 +23,7 @@ def refresh_git(request):
     :return: A Json formatted text response that includes the git activity of the request to pull data.
     """
     try:
-        g = git.cmd.Git('covid_tracker/COVID-19')
+        g = git.cmd.Git('CSSEGISandData/COVID-19')
         rv = g.pull()
     except Exception as e:
         rv = "Git sync in process..."

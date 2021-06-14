@@ -1,9 +1,9 @@
 
-FROM python:3.7-slim-buster as base
+FROM python:3.8-slim-buster as base
 FROM base as builder
 
 # set environment variables
-ENV PY_VERSION=3.7
+ENV PY_VERSION=3.8
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
@@ -30,6 +30,10 @@ RUN pip install -r /tmp/requirements.txt
 
 COPY tracker /app/
 COPY docker-entrypoint.sh /app/
+
+WORKDIR /app/tracker/covid_tracker
+RUN git clone https://github.com/CSSEGISandData/COVID-19.git
+WORKDIR /app
 
 EXPOSE 8000
 

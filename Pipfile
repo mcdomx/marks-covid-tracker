@@ -20,9 +20,17 @@ census = "*"
 python-dotenv = "*"
 gunicorn = "*"
 django = "*"
+django-extensions = "*"
 gitpython = "*"
 whitenoise = "*"
+<<<<<<< HEAD
 
+=======
+sphinx = "*"
+sphinx-rtd-theme = "*"
+ipython = "*"
+jupyterlab = "*"
+>>>>>>> b406f229ac1029b9fc5b35da44046b4884767b15
 
 [requires]
-python_version = "3.7"
+python_version = "3.8"
