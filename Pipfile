@@ -4,6 +4,8 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+sphinx = "*"
+sphinx-rtd-theme = "*"
 
 [packages]
 pandas = "*"
@@ -20,8 +22,7 @@ gunicorn = "*"
 django = "*"
 gitpython = "*"
 whitenoise = "*"
-sphinx = "*"
-sphinx-rtd-theme = "*"
+
 
 [requires]
 python_version = "3.7"
