@@ -3,13 +3,15 @@ version: '3.1'
 services:
   covid_tracker:
     image: covid_tracker
-    build: .
-    restart: "no"
+    build: 
+      context: .
+      dockerfile: Dockerfile_x86_64
+    restart: always
     environment:
-#      - WORKSPACE=PROD  # Use PROD for publishing over internet - uses gunicorn
+#      - WORKSPACE=PROD  # Use PROD for publishing over internet
       - WORKSPACE=DEV
       - COMPOSE_PROJECT_NAME=covid_tracker
     env_file:
-      - ./.env
+      - .env
     ports:
       - 9000:8000

@@ -4,6 +4,9 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+sphinx = "*"
+sphinx-rtd-theme = "*"
+notebook = "*"
 
 [packages]
 proj="6.2.0"
@@ -19,11 +22,8 @@ gunicorn = "*"
 django = "*"
 gitpython = "*"
 whitenoise = "*"
-# sphinx = "*"
-# sphinx-rtd-theme = "*"
-# pandas = "*"
-# geopandas = "*"
-# notebook = "*"
+# pandas = "*" # comment out for ARM development
+# geopandas = "*" # comment out for ARM development
 django-extensions = "*"
 
 [requires]
