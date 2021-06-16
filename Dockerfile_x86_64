@@ -29,7 +29,7 @@ RUN cd /tmp && pipenv lock --requirements > requirements.txt
 RUN pip install -r /tmp/requirements.txt
 
 COPY tracker /app/
-COPY docker-entrypoint.sh /app/
+COPY docker/docker-entrypoint.sh /app/
 
 WORKDIR /app/tracker/covid_tracker
 RUN git clone https://github.com/CSSEGISandData/COVID-19.git
