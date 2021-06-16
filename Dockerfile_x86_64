@@ -24,8 +24,10 @@ RUN pip install --upgrade pip
 RUN pip install pipenv
 
 # Get requirements.txt file by using pipenv
-COPY Pipfile* /tmp/
-RUN cd /tmp && pipenv lock --requirements > requirements.txt
+# COPY Pipfile* /tmp/
+# RUN cd /tmp && pipenv lock --requirements > requirements.txt
+# RUN pip install -r /tmp/requirements.txt
+COPY docker/x86_64/requirements.txt /tmp/
 RUN pip install -r /tmp/requirements.txt
 
 COPY tracker /app/
