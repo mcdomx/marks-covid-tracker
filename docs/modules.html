@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Code Reference &mdash; Mark&#39;s COVID Tracker 1.0 documentation</title>
   
@@ -13,10 +13,15 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
 
   
   
+
   
+  
+
   
 
   
@@ -26,10 +31,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -50,7 +55,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Mark's COVID Tracker
+            <a href="index.html" class="icon icon-home"> Mark's COVID Tracker
           
 
           
@@ -126,6 +131,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -137,7 +144,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
         
       </li>
     
@@ -156,8 +163,8 @@
 <p>These modules include the Python documentation for creating the Bokeh plots used in the application.  Javascript adjustments may be necessary to extend the application.  See the javascript file in the application for guidance.</p>
 </div>
 <span class="target" id="module-views.views"></span><dl class="py function">
-<dt id="views.views.get_counties">
-<code class="sig-prename descclassname">views.views.</code><code class="sig-name descname">get_counties</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em><span class="sig-paren">)</span><a class="headerlink" href="#views.views.get_counties" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="views.views.get_counties">
+<span class="sig-prename descclassname"><span class="pre">views.views.</span></span><span class="sig-name descname"><span class="pre">get_counties</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#views.views.get_counties" title="Permalink to this definition">¶</a></dt>
 <dd><p>Provides the counties of a state.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -170,16 +177,16 @@
 </dd></dl>
 
 <dl class="py function">
-<dt id="views.views.index_view">
-<code class="sig-prename descclassname">views.views.</code><code class="sig-name descname">index_view</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em><span class="sig-paren">)</span><a class="headerlink" href="#views.views.index_view" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="views.views.index_view">
+<span class="sig-prename descclassname"><span class="pre">views.views.</span></span><span class="sig-name descname"><span class="pre">index_view</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#views.views.index_view" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default Index route which shows the initial page.  A call to this route will attempt to refresh the Git status of the repo.
 :param request:  The HTML request which is provided by Django when the route is called.
 :return:  Renders an HTML home page with ‘states’ and ‘political_affiliation’ values available to Jinja.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="views.views.refresh_git">
-<code class="sig-prename descclassname">views.views.</code><code class="sig-name descname">refresh_git</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em><span class="sig-paren">)</span><a class="headerlink" href="#views.views.refresh_git" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="views.views.refresh_git">
+<span class="sig-prename descclassname"><span class="pre">views.views.</span></span><span class="sig-name descname"><span class="pre">refresh_git</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#views.views.refresh_git" title="Permalink to this definition">¶</a></dt>
 <dd><p>Triggers a pull of the Git repository that hold the data used in plots.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -192,8 +199,8 @@
 </dd></dl>
 
 <span class="target" id="module-views.plot_state_totals"></span><dl class="py function">
-<dt id="views.plot_state_totals.plot_state_chart">
-<code class="sig-prename descclassname">views.plot_state_totals.</code><code class="sig-name descname">plot_state_chart</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">state</span><span class="o">=</span><span class="default_value">'United States'</span></em>, <em class="sig-param"><span class="n">county</span><span class="o">=</span><span class="default_value">'All'</span></em>, <em class="sig-param"><span class="n">frequency</span><span class="o">=</span><span class="default_value">'daily'</span></em>, <em class="sig-param"><span class="n">data_type</span><span class="o">=</span><span class="default_value">'infections'</span></em>, <em class="sig-param"><span class="n">rolling_window</span><span class="o">=</span><span class="default_value">14</span></em><span class="sig-paren">)</span><a class="headerlink" href="#views.plot_state_totals.plot_state_chart" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="views.plot_state_totals.plot_state_chart">
+<span class="sig-prename descclassname"><span class="pre">views.plot_state_totals.</span></span><span class="sig-name descname"><span class="pre">plot_state_chart</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'United</span> <span class="pre">States'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">county</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'All'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'daily'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'infections'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rolling_window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">14</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#views.plot_state_totals.plot_state_chart" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots the values for a selected state, county or the entire United States.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -213,8 +220,8 @@
 </dd></dl>
 
 <span class="target" id="module-views.plot_state_by_county"></span><dl class="py function">
-<dt id="views.plot_state_by_county.plot_state_by_county_chart">
-<code class="sig-prename descclassname">views.plot_state_by_county.</code><code class="sig-name descname">plot_state_by_county_chart</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">state</span><span class="o">=</span><span class="default_value">'Massachusetts'</span></em>, <em class="sig-param"><span class="n">exclude_counties</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">top_n_counties</span><span class="o">=</span><span class="default_value">15</span></em>, <em class="sig-param"><span class="n">data_type</span><span class="o">=</span><span class="default_value">'infections'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#views.plot_state_by_county.plot_state_by_county_chart" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="views.plot_state_by_county.plot_state_by_county_chart">
+<span class="sig-prename descclassname"><span class="pre">views.plot_state_by_county.</span></span><span class="sig-name descname"><span class="pre">plot_state_by_county_chart</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Massachusetts'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude_counties</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_n_counties</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'infections'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#views.plot_state_by_county.plot_state_by_county_chart" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots a line chart of values by date for the counties in a provided state.  Not all counties are shown to avoid visual confusion.  The top_n counties defaults to 15 but can be set.  Infections are plotted by default, but ‘deaths’ can be plotted as well.  Counties can be excluded from the plot.
 The function can be called with parameters in a request object or with specific parameters.  If a request object is supplied, other variables supplied are ignored.</p>
 <dl class="field-list simple">
@@ -234,8 +241,8 @@ The function can be called with parameters in a request object or with specific 
 </dd></dl>
 
 <span class="target" id="module-views.political_affiliation"></span><dl class="py function">
-<dt id="views.political_affiliation.plot_affiliation">
-<code class="sig-prename descclassname">views.political_affiliation.</code><code class="sig-name descname">plot_affiliation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">frequency</span><span class="o">=</span><span class="default_value">'daily'</span></em>, <em class="sig-param"><span class="n">rolling_window</span><span class="o">=</span><span class="default_value">14</span></em>, <em class="sig-param"><span class="n">exclude_states</span><span class="o">=</span><span class="default_value">[]</span></em>, <em class="sig-param"><span class="n">data_type</span><span class="o">=</span><span class="default_value">'infections'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#views.political_affiliation.plot_affiliation" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="views.political_affiliation.plot_affiliation">
+<span class="sig-prename descclassname"><span class="pre">views.political_affiliation.</span></span><span class="sig-name descname"><span class="pre">plot_affiliation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'daily'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rolling_window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">14</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude_states</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'infections'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#views.political_affiliation.plot_affiliation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots data based on ‘red’ and ‘blue’ affiliation of states.  Relies on global variable from helpers.py that lists the political affiliation per state.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -254,8 +261,8 @@ The function can be called with parameters in a request object or with specific 
 </dd></dl>
 
 <span class="target" id="module-views.plot_top_states"></span><dl class="py function">
-<dt id="views.plot_top_states.plot_top_states">
-<code class="sig-prename descclassname">views.plot_top_states.</code><code class="sig-name descname">plot_top_states</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">states</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">top_n_states</span><span class="o">=</span><span class="default_value">15</span></em>, <em class="sig-param"><span class="n">data_type</span><span class="o">=</span><span class="default_value">'infections'</span></em>, <em class="sig-param"><span class="n">exclude_states</span><span class="p">:</span> <span class="n">list</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#views.plot_top_states.plot_top_states" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="views.plot_top_states.plot_top_states">
+<span class="sig-prename descclassname"><span class="pre">views.plot_top_states.</span></span><span class="sig-name descname"><span class="pre">plot_top_states</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">states</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_n_states</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'infections'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude_states</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#views.plot_top_states.plot_top_states" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot a line chart of values for the top n states in the US.  Can plot based on infections or deaths.  A list of states canbe provided which are exluded from the list.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -280,35 +287,28 @@ The function can be called with parameters in a request object or with specific 
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-      
-        <a href="commands.html" class="btn btn-neutral float-left" title="Django Management Commands" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="commands.html" class="btn btn-neutral float-left" title="Django Management Commands" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2020, Mark McDonald
+        &#169; Copyright 2020, Mark McDonald.
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

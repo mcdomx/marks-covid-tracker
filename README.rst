@@ -151,14 +151,24 @@ After the image is created, a container can be created and run:
    docker run --rm --env-file ./.env -it -p 8080:8000 covid_tracker
 
 The docker container can also be built and executed using
-docker-compose:
+docker-compose. Multiple processor architectures are supported.
+
+For ARM (Mac Silicon):
 
 ::
 
-   docker-compose build
-   docker-compose up
+    docker-compose -f docker-compose_arm64.yml up --build
 
-The site can be accessed locally at http://127.0.0.1:9000
+For Intel 64-bit processors:
+
+::
+
+    docker-compose -f docker-compose_x86_64.yml up --build
+
+
+After the initial build the ``--build`` switch is not necessary.
+
+The site can be accessed locally at http://127.0.0.1:9000. The port can be change in the ``docker-compose_<architecture>.yml`` file. Where <architecture> is ``arm64`` or ``x86_64``.
 
 Extending the Application
 -------------------------

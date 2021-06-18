@@ -1,0 +1,17 @@
+version: '3.1'
+
+services:
+  covid_tracker:
+    image: covid_tracker
+    build: 
+      context: .
+      dockerfile: Dockerfile_arm64
+    restart: always
+    environment:
+#      - WORKSPACE=PROD  # Use PROD for publishing over internet
+      - WORKSPACE=DEV
+      - COMPOSE_PROJECT_NAME=covid_tracker
+    env_file:
+      - .env
+    ports:
+      - 9000:8000
