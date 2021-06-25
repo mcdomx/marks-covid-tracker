@@ -25,6 +25,7 @@ whitenoise = "*"
 # pandas = "*" # comment out for ARM development
 # geopandas = "*" # comment out for ARM development
 django-extensions = "*"
+sodapy = "*"
 
 [requires]
 python_version = "3.7"

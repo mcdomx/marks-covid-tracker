@@ -21,6 +21,7 @@ FILE_PATH = os.path.join('covid_tracker', 'COVID-19', 'csse_covid_19_data', 'css
 territories = ['American Samoa', 'Guam', 'Northern Mariana Islands', 'Mariana Islands',
                'Puerto Rico', 'Virgin Islands', 'Diamond Princess', 'Grand Princess']
 
+# affiliation of governor in 2019
 political_affiliations = {'American Samoa': 'na',
                           'Guam': 'na',
                           'Northern Mariana Islands': 'na',
