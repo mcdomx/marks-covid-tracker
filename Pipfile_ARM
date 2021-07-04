@@ -22,12 +22,10 @@ gunicorn = "*"
 django = "*"
 gitpython = "*"
 whitenoise = "*"
-pandas = "*" # comment out for ARM development
-geopandas = "*" # comment out for ARM development
+# pandas = "*" # comment out for ARM development
+# geopandas = "*" # comment out for ARM development
 django-extensions = "*"
 sodapy = "*"
-typing-extensions = "*"
-us = "*"
 
 [requires]
-python_version = "3.8"
+python_version = "3.7"
