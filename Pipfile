@@ -28,6 +28,9 @@ django-extensions = "*"
 sodapy = "*"
 typing-extensions = "*"
 us = "*"
+plotly = "*"
+plotly-geo = "*"
+pyshp = "*"
 
 [requires]
 python_version = "3.8"
